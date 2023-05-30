@@ -1,0 +1,40 @@
+extends ../../layouts/backend_layout
+
+block content 
+    main#main.main
+        .pagetitle
+            h1 Upsell
+        section.section.upsell
+            div.main-container.upsell-card
+                div.row
+                    div.col-lg-8
+                        h2
+                            | Manual post-purchase upsells
+                        h6
+                            | Create your upsells to manually select your own product combinations. The post-purchase offers you create work together with automatic upsells, but have higher priority.
+                    div.col-lg-4.d-flex.justify-content-center.justify-content-lg-end
+                        div.mt-3 
+                            a.btn.btn-primary(href=`/${store_id}/add-upsell`) Create new upsell
+                
+            div.mt-5
+                div.mt-6.row
+                    div.col-lg-4
+                        .v_di
+                            p How to Create Post-Purchase Upsells that Convert
+                            div.mt-2.aspect-w-16.aspect-h-9
+                               img(src='https://d2dehg7zmi3qpg.cloudfront.net/packs/media/images/app/video-placeholder-c83868acd0ef7635904580f1f07a9a98.png')
+                               iframe(src='https://www.youtube.com/embed/PgSixiR6Duc', frameborder='0', allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture', allowfullscreen='', title='Embedded youtube')
+                    div.col-lg-4
+                        .v_di
+                            p How to Use and Make the Most of Post Purchase Upsells
+                            div.mt-2.aspect-w-16.aspect-h-9
+                               img(src='https://d2dehg7zmi3qpg.cloudfront.net/packs/media/images/app/video-placeholder-c83868acd0ef7635904580f1f07a9a98.png')
+                               iframe(src='https://www.youtube.com/embed/V7aE5nDirc4', frameborder='0', allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture', allowfullscreen='', title='Embedded youtube')
+                    div.col-lg-4
+                        .v_di
+                            p How to Run Effective A/B Tests on Post-Purchase Upsells
+                            div.mt-2.aspect-w-16.aspect-h-9
+                               img(src='https://d2dehg7zmi3qpg.cloudfront.net/packs/media/images/app/video-placeholder-c83868acd0ef7635904580f1f07a9a98.png')
+                               iframe(src='https://www.youtube.com/embed/1th6PHIyhzs', frameborder='0', allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture', allowfullscreen='', title='Embedded youtube')
+                div.mt-5.d-flex.justify-content-center
+                    a.w-full.btn.btn-secondary(class='md:w-auto', target='_blank', href='https://help.checkout-x.com/en/collections/2298473-checkout-x-upsells') See all guides

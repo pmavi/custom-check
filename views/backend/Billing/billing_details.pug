@@ -1,0 +1,476 @@
+extends ../../layouts/backend_layout
+
+block content 
+    main#main.main
+        .pagetitle
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true"><h1> Billing Details </h1></button>
+                </li>
+                if(user_billings_invoices && user_billings_invoices.length !== 0)
+                    <li class="nav-item" role="presentation">
+                        a(href=(`/${store_id}/invoice-details`))
+                            <button class="nav-link" id="profile-tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false"><h1> Invoices </h1></button>
+                    </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                
+                    //- h1 Billing Details
+                    section.section.billing-details
+                        form#billing_form.row.g-3(method="post" action="/billing-detail")
+                            div.row
+                                div.col-xl-4
+                                    div
+                                        div.billing-details-card.pt-4.d-flex.flex-column
+                                            h2 Billing Plan 
+                                            p Shopify transaction fees will be replaced by Checkout Master transaction fees for all payments going through Checkout Master.             
+
+                                div.col-xl-8
+                                    div.card
+                                        div.card-body.pt-3
+                                            div.tab-content.pt-2
+                                                if(subscription_packages && subscription_packages.length !== 0)
+                                                    each subscription_package in subscription_packages
+                                                        label.preferences-wrapper
+                                                            div.custom-control.custom-radio
+                                                                input.custom-control-input.required(
+                                                                    id=`subscription_package_${subscription_package.id}`
+                                                                    type='radio',
+                                                                    name='subscription_package_id',
+                                                                    value=`${subscription_package.id}`,
+                                                                    checked=(billing_details && billing_details.subscription_package_id==subscription_package.id?true:false)
+                                                                )
+                                                                label.custom-control-label(
+                                                                    for=`subscription_package_${subscription_package.id}`
+                                                                )
+
+                                                            div.billing-plan
+                                                                div.preferences-wrapper-title
+                                                                    | #{subscription_package.package_name}
+                                                                div.preferences-wrapper-subtitle
+                                                                    if(subscription_package.package_name == "Premium")
+                                                                        | 0.5% transaction fee
+                                                                    else 
+                                                                        | 1.0% transaction fee
+                                                            div.preferences-wrapper-price
+                                                                | &euro;#{subscription_package.price} / #{subscription_package.billing_cycle}
+
+                            div.row.mt-5
+                                div.col-xl-4
+                                    div
+                                        div.billing-details-card.pt-4.d-flex.flex-column
+                                            h2 Billing Details 
+                                            p  These are the details that are going to be shown on your invoice.   
+                                            p  Please fill them correctly, otherwise your accountant will give you trouble 🙃. 
+
+                                div.col-xl-8
+                                    div.card
+                                        div.card-body
+                                            .form-group.row.mb-2
+                                                .col-md-12
+                                                    input.form-control.required(
+                                                        type='text'
+                                                        name='billing_company'
+                                                        placeholder="Company Name"
+                                                        value=`${billing_details ? billing_details.billing_company: ''}`
+                                                    )
+                                            .form-group.row.mb-2
+                                                .col-md-12
+                                                    input#isCompanyId.form-check-input.me-2(
+                                                        type='checkbox',
+                                                    )
+                                                    | I don't have a company
+                                            .form-group.row.mb-2
+                                                .col-md-6
+                                                    input.form-control.required(
+                                                        type='text',
+                                                        name='billing_first_name'
+                                                        placeholder="First Name"
+                                                        value=`${billing_details ? billing_details.billing_first_name: ''}`
+                                                    )
+
+                                                .col-md-6
+                                                    input.form-control.required(
+                                                        type='text'
+                                                        name='billing_last_name'
+                                                        placeholder="Last Name"
+                                                        value=`${billing_details ? billing_details.billing_last_name: ''}`
+                                                    )
+                                            .form-group.row.mb-2
+                                                .col-md-12
+                                                    input.form-control.required(
+                                                        type='text'
+                                                        name='billing_address'
+                                                        placeholder="Street address"
+                                                        value=`${billing_details ? billing_details.billing_address: ''}`
+                                                    )
+                                            .form-group.row.mb-2
+                                                .col-md-6
+                                                    input.form-control.required(
+                                                        type='text',
+                                                        name='billing_city'
+                                                        placeholder="City"
+                                                        value=`${billing_details ? billing_details.billing_city: ''}`
+                                                    )
+                                                .col-md-6
+                                                    input.form-control.required(
+                                                        type='text',
+                                                        name='billing_zip'
+                                                        placeholder="Zip code"
+                                                        value=`${billing_details ? billing_details.billing_zip: ''}`
+                                                    )
+                                            .form-group.row.mb-2
+                                                .col-md-6
+                                                    input.form-control(
+                                                        type='text'
+                                                        name='billing_state'
+                                                        placeholder="State / Province"
+                                                        value=`${billing_details ? billing_details.billing_state: ''}`
+                                                    )
+                                                .col-md-6
+                                                    select.form-select#billing_select(name='billing_country_code')
+                                                        
+                                                        option(value='AF' selected=(billing_details && billing_details.billing_country_code=="AF"?true:false)) Afghanistan
+                                                        option(value='AX' selected=(billing_details && billing_details.billing_country_code=="AX"?true:false)) Aland Islands
+                                                        option(value='AL' selected=(billing_details && billing_details.billing_country_code=="AL"?true:false)) Albania
+                                                        option(value='DZ' selected=(billing_details && billing_details.billing_country_code=="DZ"?true:false)) Algeria
+                                                        option(value='AS' selected=(billing_details && billing_details.billing_country_code=="AS"?true:false)) American Samoa
+                                                        option(value='AD' selected=(billing_details && billing_details.billing_country_code=="AD"?true:false)) Andorra
+                                                        option(value='AO' selected=(billing_details && billing_details.billing_country_code=="AO"?true:false)) Angola
+                                                        option(value='AI' selected=(billing_details && billing_details.billing_country_code=="AI"?true:false)) Anguilla
+                                                        option(value='AQ' selected=(billing_details && billing_details.billing_country_code=="AQ"?true:false)) Antarctica
+                                                        option(value='AG' selected=(billing_details && billing_details.billing_country_code=="AG"?true:false)) Antigua and Barbuda
+                                                        option(value='AR' selected=(billing_details && billing_details.billing_country_code=="AR"?true:false)) Argentina
+                                                        option(value='AM' selected=(billing_details && billing_details.billing_country_code=="AM"?true:false)) Armenia
+                                                        option(value='AW' selected=(billing_details && billing_details.billing_country_code=="AW"?true:false)) Aruba
+                                                        option(value='AU' selected=(billing_details && billing_details.billing_country_code=="AU"?true:false)) Australia
+                                                        option(value='AT' selected=(billing_details && billing_details.billing_country_code=="AT"?true:false)) Austria
+                                                        option(value='AZ' selected=(billing_details && billing_details.billing_country_code=="AZ"?true:false)) Azerbaijan
+                                                        option(value='BS' selected=(billing_details && billing_details.billing_country_code=="BS"?true:false)) Bahamas
+                                                        option(value='BH' selected=(billing_details && billing_details.billing_country_code=="BH"?true:false)) Bahrain
+                                                        option(value='BD' selected=(billing_details && billing_details.billing_country_code=="BD"?true:false)) Bangladesh
+                                                        option(value='BB' selected=(billing_details && billing_details.billing_country_code=="BB"?true:false)) Barbados
+                                                        option(value='BY' selected=(billing_details && billing_details.billing_country_code=="BY"?true:false)) Belarus
+                                                        option(value='BE' selected=(billing_details && billing_details.billing_country_code=="BE"?true:false)) Belgium
+                                                        option(value='BZ' selected=(billing_details && billing_details.billing_country_code=="BZ"?true:false)) Belize
+                                                        option(value='BJ' selected=(billing_details && billing_details.billing_country_code=="BJ"?true:false)) Benin
+                                                        option(value='BM' selected=(billing_details && billing_details.billing_country_code=="BM"?true:false)) Bermuda
+                                                        option(value='BT' selected=(billing_details && billing_details.billing_country_code=="BT"?true:false)) Bhutan
+                                                        option(value='BO' selected=(billing_details && billing_details.billing_country_code=="BO"?true:false)) Bolivia
+                                                        option(value='BQ' selected=(billing_details && billing_details.billing_country_code=="BQ"?true:false)) Bonaire, Sint Eustatius and Saba
+                                                        option(value='BA' selected=(billing_details && billing_details.billing_country_code=="BA"?true:false)) Bosnia and Herzegovina
+                                                        option(value='BW' selected=(billing_details && billing_details.billing_country_code=="BW"?true:false)) Botswana
+                                                        option(value='BV' selected=(billing_details && billing_details.billing_country_code=="BV"?true:false)) Bouvet Island
+                                                        option(value='BR' selected=(billing_details && billing_details.billing_country_code=="BR"?true:false)) Brazil
+                                                        option(value='IO' selected=(billing_details && billing_details.billing_country_code=="IO"?true:false)) British Indian Ocean Territory
+                                                        option(value='BN' selected=(billing_details && billing_details.billing_country_code=="BN"?true:false)) Brunei Darussalam
+                                                        option(value='BG' selected=(billing_details && billing_details.billing_country_code=="BG"?true:false)) Bulgaria
+                                                        option(value='BF' selected=(billing_details && billing_details.billing_country_code=="BF"?true:false)) Burkina Faso
+                                                        option(value='BI' selected=(billing_details && billing_details.billing_country_code=="BI"?true:false)) Burundi
+                                                        option(value='KH' selected=(billing_details && billing_details.billing_country_code=="KH"?true:false)) Cambodia
+                                                        option(value='CM' selected=(billing_details && billing_details.billing_country_code=="CM"?true:false)) Cameroon
+                                                        option(value='CA' selected=(billing_details && billing_details.billing_country_code=="CA"?true:false)) Canada
+                                                        option(value='CV' selected=(billing_details && billing_details.billing_country_code=="CV"?true:false)) Cape Verde
+                                                        option(value='KY' selected=(billing_details && billing_details.billing_country_code=="KY"?true:false)) Cayman Islands
+                                                        option(value='CF' selected=(billing_details && billing_details.billing_country_code=="CF"?true:false)) Central African Republic
+                                                        option(value='TD' selected=(billing_details && billing_details.billing_country_code=="TD"?true:false)) Chad
+                                                        option(value='CL' selected=(billing_details && billing_details.billing_country_code=="CL"?true:false)) Chile
+                                                        option(value='CN' selected=(billing_details && billing_details.billing_country_code=="CN"?true:false)) China
+                                                        option(value='CX' selected=(billing_details && billing_details.billing_country_code=="CX"?true:false)) Christmas Island
+                                                        option(value='CC' selected=(billing_details && billing_details.billing_country_code=="CC"?true:false)) Cocos (Keeling) Islands
+                                                        option(value='CO' selected=(billing_details && billing_details.billing_country_code=="CO"?true:false)) Colombia
+                                                        option(value='KM' selected=(billing_details && billing_details.billing_country_code=="KM"?true:false)) Comoros
+                                                        option(value='CG' selected=(billing_details && billing_details.billing_country_code=="CG"?true:false)) Congo
+                                                        option(value='CD' selected=(billing_details && billing_details.billing_country_code=="CD"?true:false)) Congo, Democratic Republic of the Congo
+                                                        option(value='CK' selected=(billing_details && billing_details.billing_country_code=="CK"?true:false)) Cook Islands
+                                                        option(value='CR' selected=(billing_details && billing_details.billing_country_code=="CR"?true:false)) Costa Rica
+                                                        option(value='CI' selected=(billing_details && billing_details.billing_country_code=="CI"?true:false)) Cote D&apos;Ivoire
+                                                        option(value='HR' selected=(billing_details && billing_details.billing_country_code=="HR"?true:false)) Croatia
+                                                        option(value='CU' selected=(billing_details && billing_details.billing_country_code=="CU"?true:false)) Cuba
+                                                        option(value='CW' selected=(billing_details && billing_details.billing_country_code=="CW"?true:false)) Curacao
+                                                        option(value='CY' selected=(billing_details && billing_details.billing_country_code=="CY"?true:false)) Cyprus
+                                                        option(value='CZ' selected=(billing_details && billing_details.billing_country_code=="CZ"?true:false)) Czech Republic
+                                                        option(value='DK' selected=(billing_details && billing_details.billing_country_code=="DK"?true:false)) Denmark
+                                                        option(value='DJ' selected=(billing_details && billing_details.billing_country_code=="DJ"?true:false)) Djibouti
+                                                        option(value='DM' selected=(billing_details && billing_details.billing_country_code=="DM"?true:false)) Dominica
+                                                        option(value='DO' selected=(billing_details && billing_details.billing_country_code=="DO"?true:false)) Dominican Republic
+                                                        option(value='EC' selected=(billing_details && billing_details.billing_country_code=="EC"?true:false)) Ecuador
+                                                        option(value='EG' selected=(billing_details && billing_details.billing_country_code=="EG"?true:false)) Egypt
+                                                        option(value='SV' selected=(billing_details && billing_details.billing_country_code=="SV"?true:false)) El Salvador
+                                                        option(value='GQ' selected=(billing_details && billing_details.billing_country_code=="GQ"?true:false)) Equatorial Guinea
+                                                        option(value='ER' selected=(billing_details && billing_details.billing_country_code=="ER"?true:false)) Eritrea
+                                                        option(value='EE' selected=(billing_details && billing_details.billing_country_code=="EE"?true:false)) Estonia
+                                                        option(value='ET' selected=(billing_details && billing_details.billing_country_code=="ET"?true:false)) Ethiopia
+                                                        option(value='FK' selected=(billing_details && billing_details.billing_country_code=="FK"?true:false)) Falkland Islands (Malvinas)
+                                                        option(value='FO' selected=(billing_details && billing_details.billing_country_code=="FO"?true:false)) Faroe Islands
+                                                        option(value='FJ' selected=(billing_details && billing_details.billing_country_code=="FJ"?true:false)) Fiji
+                                                        option(value='FI' selected=(billing_details && billing_details.billing_country_code=="FI"?true:false)) Finland
+                                                        option(value='FR' selected=(billing_details && billing_details.billing_country_code=="FR"?true:false)) France
+                                                        option(value='GF' selected=(billing_details && billing_details.billing_country_code=="GF"?true:false)) French Guiana
+                                                        option(value='PF' selected=(billing_details && billing_details.billing_country_code=="PF"?true:false)) French Polynesia
+                                                        option(value='TF' selected=(billing_details && billing_details.billing_country_code=="TF"?true:false)) French Southern Territories
+                                                        option(value='GA' selected=(billing_details && billing_details.billing_country_code=="GA"?true:false)) Gabon
+                                                        option(value='GM' selected=(billing_details && billing_details.billing_country_code=="GM"?true:false)) Gambia
+                                                        option(value='GE' selected=(billing_details && billing_details.billing_country_code=="GE"?true:false)) Georgia
+                                                        option(value='DE' selected=(billing_details && billing_details.billing_country_code=="DE"?true:false)) Germany
+                                                        option(value='GH' selected=(billing_details && billing_details.billing_country_code=="GH"?true:false)) Ghana
+                                                        option(value='GI' selected=(billing_details && billing_details.billing_country_code=="GI"?true:false)) Gibraltar
+                                                        option(value='GR' selected=(billing_details && billing_details.billing_country_code=="GR"?true:false)) Greece
+                                                        option(value='GL' selected=(billing_details && billing_details.billing_country_code=="GL"?true:false)) Greenland
+                                                        option(value='GD' selected=(billing_details && billing_details.billing_country_code=="GD"?true:false)) Grenada
+                                                        option(value='GP' selected=(billing_details && billing_details.billing_country_code=="GP"?true:false)) Guadeloupe
+                                                        option(value='GU' selected=(billing_details && billing_details.billing_country_code=="GU"?true:false)) Guam
+                                                        option(value='GT' selected=(billing_details && billing_details.billing_country_code=="GT"?true:false)) Guatemala
+                                                        option(value='GG' selected=(billing_details && billing_details.billing_country_code=="GG"?true:false)) Guernsey
+                                                        option(value='GN' selected=(billing_details && billing_details.billing_country_code=="GN"?true:false)) Guinea
+                                                        option(value='GW' selected=(billing_details && billing_details.billing_country_code=="GW"?true:false)) Guinea-Bissau
+                                                        option(value='GY' selected=(billing_details && billing_details.billing_country_code=="GY"?true:false)) Guyana
+                                                        option(value='HT' selected=(billing_details && billing_details.billing_country_code=="HT"?true:false)) Haiti
+                                                        option(value='HM' selected=(billing_details && billing_details.billing_country_code=="HM"?true:false)) Heard Island and Mcdonald Islands
+                                                        option(value='VA' selected=(billing_details && billing_details.billing_country_code=="VA"?true:false)) Holy See (Vatican City State)
+                                                        option(value='HN' selected=(billing_details && billing_details.billing_country_code=="HN"?true:false)) Honduras
+                                                        option(value='HK' selected=(billing_details && billing_details.billing_country_code=="HK"?true:false)) Hong Kong
+                                                        option(value='HU' selected=(billing_details && billing_details.billing_country_code=="HU"?true:false)) Hungary
+                                                        option(value='IS' selected=(billing_details && billing_details.billing_country_code=="IS"?true:false)) Iceland
+                                                        option(value='IN' selected=(billing_details && billing_details.billing_country_code=="IN"?true:false)) India
+                                                        option(value='ID' selected=(billing_details && billing_details.billing_country_code=="ID"?true:false)) Indonesia
+                                                        option(value='IR' selected=(billing_details && billing_details.billing_country_code=="IR"?true:false)) Iran, Islamic Republic of
+                                                        option(value='IQ' selected=(billing_details && billing_details.billing_country_code=="IQ"?true:false)) Iraq
+                                                        option(value='IE' selected=(billing_details && billing_details.billing_country_code=="IE"?true:false)) Ireland
+                                                        option(value='IM' selected=(billing_details && billing_details.billing_country_code=="IM"?true:false)) Isle of Man
+                                                        option(value='IL' selected=(billing_details && billing_details.billing_country_code=="IL"?true:false)) Israel
+                                                        option(value='IT' selected=(billing_details && billing_details.billing_country_code=="IT"?true:false)) Italy
+                                                        option(value='JM' selected=(billing_details && billing_details.billing_country_code=="JM"?true:false)) Jamaica
+                                                        option(value='JP' selected=(billing_details && billing_details.billing_country_code=="JP"?true:false)) Japan
+                                                        option(value='JE' selected=(billing_details && billing_details.billing_country_code=="JE"?true:false)) Jersey
+                                                        option(value='JO' selected=(billing_details && billing_details.billing_country_code=="JO"?true:false)) Jordan
+                                                        option(value='KZ' selected=(billing_details && billing_details.billing_country_code=="KZ"?true:false)) Kazakhstan
+                                                        option(value='KE' selected=(billing_details && billing_details.billing_country_code=="KE"?true:false)) Kenya
+                                                        option(value='KI' selected=(billing_details && billing_details.billing_country_code=="KI"?true:false)) Kiribati
+                                                        option(value='KP' selected=(billing_details && billing_details.billing_country_code=="KP"?true:false)) Korea, Democratic People&apos;s Republic of
+                                                        option(value='KR' selected=(billing_details && billing_details.billing_country_code=="KR"?true:false)) Korea, Republic of
+                                                        option(value='XK' selected=(billing_details && billing_details.billing_country_code=="XK"?true:false)) Kosovo
+                                                        option(value='KW' selected=(billing_details && billing_details.billing_country_code=="KW"?true:false)) Kuwait
+                                                        option(value='KG' selected=(billing_details && billing_details.billing_country_code=="KG"?true:false)) Kyrgyzstan
+                                                        option(value='LA' selected=(billing_details && billing_details.billing_country_code=="LA"?true:false)) Lao People&apos;s Democratic Republic
+                                                        option(value='LV' selected=(billing_details && billing_details.billing_country_code=="LV"?true:false)) Latvia
+                                                        option(value='LB' selected=(billing_details && billing_details.billing_country_code=="LB"?true:false)) Lebanon
+                                                        option(value='LS' selected=(billing_details && billing_details.billing_country_code=="LS"?true:false)) Lesotho
+                                                        option(value='LR' selected=(billing_details && billing_details.billing_country_code=="LR"?true:false)) Liberia
+                                                        option(value='LY' selected=(billing_details && billing_details.billing_country_code=="LY"?true:false)) Libyan Arab Jamahiriya
+                                                        option(value='LI' selected=(billing_details && billing_details.billing_country_code=="LI"?true:false)) Liechtenstein
+                                                        option(value='LT' selected=(billing_details && billing_details.billing_country_code=="LT"?true:false)) Lithuania
+                                                        option(value='LU' selected=(billing_details && billing_details.billing_country_code=="LU"?true:false)) Luxembourg
+                                                        option(value='MO' selected=(billing_details && billing_details.billing_country_code=="MO"?true:false)) Macao
+                                                        option(value='MK' selected=(billing_details && billing_details.billing_country_code=="MK"?true:false)) Macedonia, the Former Yugoslav Republic of
+                                                        option(value='MG' selected=(billing_details && billing_details.billing_country_code=="MG"?true:false)) Madagascar
+                                                        option(value='MW' selected=(billing_details && billing_details.billing_country_code=="MW"?true:false)) Malawi
+                                                        option(value='MY' selected=(billing_details && billing_details.billing_country_code=="MY"?true:false)) Malaysia
+                                                        option(value='MV' selected=(billing_details && billing_details.billing_country_code=="MV"?true:false)) Maldives
+                                                        option(value='ML' selected=(billing_details && billing_details.billing_country_code=="ML"?true:false)) Mali
+                                                        option(value='MT' selected=(billing_details && billing_details.billing_country_code=="MT"?true:false)) Malta
+                                                        option(value='MH' selected=(billing_details && billing_details.billing_country_code=="MH"?true:false)) Marshall Islands
+                                                        option(value='MQ' selected=(billing_details && billing_details.billing_country_code=="MQ"?true:false)) Martinique
+                                                        option(value='MR' selected=(billing_details && billing_details.billing_country_code=="MR"?true:false)) Mauritania
+                                                        option(value='MU' selected=(billing_details && billing_details.billing_country_code=="MU"?true:false)) Mauritius
+                                                        option(value='YT' selected=(billing_details && billing_details.billing_country_code=="YT"?true:false)) Mayotte
+                                                        option(value='MX' selected=(billing_details && billing_details.billing_country_code=="MX"?true:false)) Mexico
+                                                        option(value='FM' selected=(billing_details && billing_details.billing_country_code=="FM"?true:false)) Micronesia, Federated States of
+                                                        option(value='MD' selected=(billing_details && billing_details.billing_country_code=="MD"?true:false)) Moldova, Republic of
+                                                        option(value='MC' selected=(billing_details && billing_details.billing_country_code=="MC"?true:false)) Monaco
+                                                        option(value='MN' selected=(billing_details && billing_details.billing_country_code=="MN"?true:false)) Mongolia
+                                                        option(value='ME' selected=(billing_details && billing_details.billing_country_code=="ME"?true:false)) Montenegro
+                                                        option(value='MS' selected=(billing_details && billing_details.billing_country_code=="MS"?true:false)) Montserrat
+                                                        option(value='MA' selected=(billing_details && billing_details.billing_country_code=="MA"?true:false)) Morocco
+                                                        option(value='MZ' selected=(billing_details && billing_details.billing_country_code=="MZ"?true:false)) Mozambique
+                                                        option(value='MM' selected=(billing_details && billing_details.billing_country_code=="MM"?true:false)) Myanmar
+                                                        option(value='NA' selected=(billing_details && billing_details.billing_country_code=="NA"?true:false)) Namibia
+                                                        option(value='NR' selected=(billing_details && billing_details.billing_country_code=="NR"?true:false)) Nauru
+                                                        option(value='NP' selected=(billing_details && billing_details.billing_country_code=="NP"?true:false)) Nepal
+                                                        option(value='NL' selected=(billing_details && billing_details.billing_country_code=="NL"?true:false)) Netherlands
+                                                        option(value='AN' selected=(billing_details && billing_details.billing_country_code=="AN"?true:false)) Netherlands Antilles
+                                                        option(value='NC' selected=(billing_details && billing_details.billing_country_code=="NC"?true:false)) New Caledonia
+                                                        option(value='NZ' selected=(billing_details && billing_details.billing_country_code=="NZ"?true:false)) New Zealand
+                                                        option(value='NI' selected=(billing_details && billing_details.billing_country_code=="NI"?true:false)) Nicaragua
+                                                        option(value='NE' selected=(billing_details && billing_details.billing_country_code=="NE"?true:false)) Niger
+                                                        option(value='NG' selected=(billing_details && billing_details.billing_country_code=="NG"?true:false)) Nigeria
+                                                        option(value='NU' selected=(billing_details && billing_details.billing_country_code=="NU"?true:false)) Niue
+                                                        option(value='NF' selected=(billing_details && billing_details.billing_country_code=="NF"?true:false)) Norfolk Island
+                                                        option(value='MP' selected=(billing_details && billing_details.billing_country_code=="MP"?true:false)) Northern Mariana Islands
+                                                        option(value='NO' selected=(billing_details && billing_details.billing_country_code=="NO"?true:false)) Norway
+                                                        option(value='OM' selected=(billing_details && billing_details.billing_country_code=="OM"?true:false)) Oman
+                                                        option(value='PK' selected=(billing_details && billing_details.billing_country_code=="PK"?true:false)) Pakistan
+                                                        option(value='PW' selected=(billing_details && billing_details.billing_country_code=="PW"?true:false)) Palau
+                                                        option(value='PS' selected=(billing_details && billing_details.billing_country_code=="PS"?true:false)) Palestinian Territory, Occupied
+                                                        option(value='PA' selected=(billing_details && billing_details.billing_country_code=="PA"?true:false)) Panama
+                                                        option(value='PG' selected=(billing_details && billing_details.billing_country_code=="PG"?true:false)) Papua New Guinea
+                                                        option(value='PY' selected=(billing_details && billing_details.billing_country_code=="PY"?true:false)) Paraguay
+                                                        option(value='PE' selected=(billing_details && billing_details.billing_country_code=="PE"?true:false)) Peru
+                                                        option(value='PH' selected=(billing_details && billing_details.billing_country_code=="PH"?true:false)) Philippines
+                                                        option(value='PN' selected=(billing_details && billing_details.billing_country_code=="PN"?true:false)) Pitcairn
+                                                        option(value='PL' selected=(billing_details && billing_details.billing_country_code=="PL"?true:false)) Poland
+                                                        option(value='PT' selected=(billing_details && billing_details.billing_country_code=="PT"?true:false)) Portugal
+                                                        option(value='PR' selected=(billing_details && billing_details.billing_country_code=="PR"?true:false)) Puerto Rico
+                                                        option(value='QA' selected=(billing_details && billing_details.billing_country_code=="QA"?true:false)) Qatar
+                                                        option(value='RE' selected=(billing_details && billing_details.billing_country_code=="RE"?true:false)) Reunion
+                                                        option(value='RO' selected=(billing_details && billing_details.billing_country_code=="RO"?true:false)) Romania
+                                                        option(value='RU' selected=(billing_details && billing_details.billing_country_code=="RU"?true:false)) Russian Federation
+                                                        option(value='RW' selected=(billing_details && billing_details.billing_country_code=="RW"?true:false)) Rwanda
+                                                        option(value='BL' selected=(billing_details && billing_details.billing_country_code=="BL"?true:false)) Saint Barthelemy
+                                                        option(value='SH' selected=(billing_details && billing_details.billing_country_code=="SH"?true:false)) Saint Helena
+                                                        option(value='KN' selected=(billing_details && billing_details.billing_country_code=="KN"?true:false)) Saint Kitts and Nevis
+                                                        option(value='LC' selected=(billing_details && billing_details.billing_country_code=="LC"?true:false)) Saint Lucia
+                                                        option(value='MF' selected=(billing_details && billing_details.billing_country_code=="MF"?true:false)) Saint Martin
+                                                        option(value='PM' selected=(billing_details && billing_details.billing_country_code=="PM"?true:false)) Saint Pierre and Miquelon
+                                                        option(value='VC' selected=(billing_details && billing_details.billing_country_code=="VC"?true:false)) Saint Vincent and the Grenadines
+                                                        option(value='WS' selected=(billing_details && billing_details.billing_country_code=="WS"?true:false)) Samoa
+                                                        option(value='SM' selected=(billing_details && billing_details.billing_country_code=="SM"?true:false)) San Marino
+                                                        option(value='ST' selected=(billing_details && billing_details.billing_country_code=="ST"?true:false)) Sao Tome and Principe
+                                                        option(value='SA' selected=(billing_details && billing_details.billing_country_code=="SA"?true:false)) Saudi Arabia
+                                                        option(value='SN' selected=(billing_details && billing_details.billing_country_code=="SN"?true:false)) Senegal
+                                                        option(value='RS' selected=(billing_details && billing_details.billing_country_code=="RS"?true:false)) Serbia
+                                                        option(value='CS' selected=(billing_details && billing_details.billing_country_code=="CS"?true:false)) Serbia and Montenegro
+                                                        option(value='SC' selected=(billing_details && billing_details.billing_country_code=="SC"?true:false)) Seychelles
+                                                        option(value='SL' selected=(billing_details && billing_details.billing_country_code=="SL"?true:false)) Sierra Leone
+                                                        option(value='SG' selected=(billing_details && billing_details.billing_country_code=="SG"?true:false)) Singapore
+                                                        option(value='SX' selected=(billing_details && billing_details.billing_country_code=="SX"?true:false)) Sint Maarten
+                                                        option(value='SK' selected=(billing_details && billing_details.billing_country_code=="SK"?true:false)) Slovakia
+                                                        option(value='SI' selected=(billing_details && billing_details.billing_country_code=="SI"?true:false)) Slovenia
+                                                        option(value='SB' selected=(billing_details && billing_details.billing_country_code=="SB"?true:false)) Solomon Islands
+                                                        option(value='SO' selected=(billing_details && billing_details.billing_country_code=="SO"?true:false)) Somalia
+                                                        option(value='ZA' selected=(billing_details && billing_details.billing_country_code=="ZA"?true:false)) South Africa
+                                                        option(value='GS' selected=(billing_details && billing_details.billing_country_code=="GS"?true:false)) South Georgia and the South Sandwich Islands
+                                                        option(value='SS' selected=(billing_details && billing_details.billing_country_code=="SS"?true:false)) South Sudan
+                                                        option(value='ES' selected=(billing_details && billing_details.billing_country_code=="ES"?true:false)) Spain
+                                                        option(value='LK' selected=(billing_details && billing_details.billing_country_code=="LK"?true:false)) Sri Lanka
+                                                        option(value='SD' selected=(billing_details && billing_details.billing_country_code=="SD"?true:false)) Sudan
+                                                        option(value='SR' selected=(billing_details && billing_details.billing_country_code=="SR"?true:false)) Suriname
+                                                        option(value='SJ' selected=(billing_details && billing_details.billing_country_code=="SJ"?true:false)) Svalbard and Jan Mayen
+                                                        option(value='SZ' selected=(billing_details && billing_details.billing_country_code=="SZ"?true:false)) Swaziland
+                                                        option(value='SE' selected=(billing_details && billing_details.billing_country_code=="SE"?true:false)) Sweden
+                                                        option(value='CH' selected=(billing_details && billing_details.billing_country_code=="CH"?true:false)) Switzerland
+                                                        option(value='SY' selected=(billing_details && billing_details.billing_country_code=="SY"?true:false)) Syrian Arab Republic
+                                                        option(value='TW' selected=(billing_details && billing_details.billing_country_code=="TW"?true:false)) Taiwan, Province of China
+                                                        option(value='TJ' selected=(billing_details && billing_details.billing_country_code=="TJ"?true:false)) Tajikistan
+                                                        option(value='TZ' selected=(billing_details && billing_details.billing_country_code=="TZ"?true:false)) Tanzania, United Republic of
+                                                        option(value='TH' selected=(billing_details && billing_details.billing_country_code=="TH"?true:false)) Thailand
+                                                        option(value='TL' selected=(billing_details && billing_details.billing_country_code=="TL"?true:false)) Timor-Leste
+                                                        option(value='TG' selected=(billing_details && billing_details.billing_country_code=="TG"?true:false)) Togo
+                                                        option(value='TK' selected=(billing_details && billing_details.billing_country_code=="TK"?true:false)) Tokelau
+                                                        option(value='TO' selected=(billing_details && billing_details.billing_country_code=="TO"?true:false)) Tonga
+                                                        option(value='TT' selected=(billing_details && billing_details.billing_country_code=="TT"?true:false)) Trinidad and Tobago
+                                                        option(value='TN' selected=(billing_details && billing_details.billing_country_code=="TN"?true:false)) Tunisia
+                                                        option(value='TR' selected=(billing_details && billing_details.billing_country_code=="TR"?true:false)) Turkey
+                                                        option(value='TM' selected=(billing_details && billing_details.billing_country_code=="TM"?true:false)) Turkmenistan
+                                                        option(value='TC' selected=(billing_details && billing_details.billing_country_code=="TC"?true:false)) Turks and Caicos Islands
+                                                        option(value='TV' selected=(billing_details && billing_details.billing_country_code=="TV"?true:false)) Tuvalu
+                                                        option(value='UG' selected=(billing_details && billing_details.billing_country_code=="UG"?true:false)) Uganda
+                                                        option(value='UA' selected=(billing_details && billing_details.billing_country_code=="UA"?true:false)) Ukraine
+                                                        option(value='AE' selected=(billing_details && billing_details.billing_country_code=="AE"?true:false)) United Arab Emirates
+                                                        option(value='GB' selected=(billing_details && billing_details.billing_country_code=="GB"?true:false)) United Kingdom
+                                                        option(value='US' selected=(billing_details && billing_details.billing_country_code=="US"?true:false)) United States
+                                                        option(value='UM' selected=(billing_details && billing_details.billing_country_code=="UM"?true:false)) United States Minor Outlying Islands
+                                                        option(value='UY' selected=(billing_details && billing_details.billing_country_code=="UY"?true:false)) Uruguay
+                                                        option(value='UZ' selected=(billing_details && billing_details.billing_country_code=="UZ"?true:false)) Uzbekistan
+                                                        option(value='VU' selected=(billing_details && billing_details.billing_country_code=="VU"?true:false)) Vanuatu
+                                                        option(value='VE' selected=(billing_details && billing_details.billing_country_code=="VE"?true:false)) Venezuela
+                                                        option(value='VN' selected=(billing_details && billing_details.billing_country_code=="VN"?true:false)) Viet Nam
+                                                        option(value='VG' selected=(billing_details && billing_details.billing_country_code=="VG"?true:false)) Virgin Islands, British
+                                                        option(value='VI' selected=(billing_details && billing_details.billing_country_code=="VI"?true:false)) Virgin Islands, U.s.
+                                                        option(value='WF' selected=(billing_details && billing_details.billing_country_code=="WF"?true:false)) Wallis and Futuna
+                                                        option(value='EH' selected=(billing_details && billing_details.billing_country_code=="EH"?true:false)) Western Sahara
+                                                        option(value='YE' selected=(billing_details && billing_details.billing_country_code=="YE"?true:false)) Yemen
+                                                        option(value='ZM' selected=(billing_details && billing_details.billing_country_code=="ZM"?true:false)) Zambia
+                                                        option(value='ZW' selected=(billing_details && billing_details.billing_country_code=="ZW"?true:false)) Zimbabwe
+                        
+                            div.row
+                                div.col-xl-4
+                                    div
+                                        div.billing-details-card.pt-4.d-flex.flex-column
+                                            h2 Billing Method
+                                div.col-xl-8
+                                    div.card
+                                        div.card-body.pt-3
+                                            #accordionPayment.accordion
+                                                .accordion-item.mb-3
+                                                    h2.h5.px-4.py-3.accordion-header.d-flex.justify-content-between.align-items-center
+                                                        .collapsed(
+                                                            data-bs-toggle='collapse',
+                                                            data-bs-target='#collapseCC',
+                                                            aria-expanded='false'
+                                                        ) Credit Card 
+                                                    div.tab-content.pt-2
+                                                        if(user_subscription_cards && user_subscription_cards.length !== 0)
+                                                            each user_subscription_card in user_subscription_cards
+                                                                label.preferences-wrapper
+                                                                    div.custom-control.custom-radio
+                                                                        input.custom-control-input.required(
+                                                                            id=`card_${user_subscription_card.id}`
+                                                                            type='radio',
+                                                                            name='card_id',
+                                                                            value=`${user_subscription_card.stripe_card_id}`
+                                                                            checked=`${user_subscription_card.isDefault}`
+                                                                        )
+                                                                        input(type='hidden' , id="stripe_customer_id", name="stripe_customer_id" ,value =user_subscription_card.stripe_customer_id)
+                                                                        label.custom-control-label(
+                                                                            for=`card_${user_subscription_card.id}`
+                                                                        )
+
+                                                                    div.billing-plan
+                                                                        div.preferences-wrapper-title
+                                                                            | Stripe Card
+                                                                        div.preferences-wrapper-subtitle
+                                                                                | #{user_subscription_card.stripe_card_last4}
+                                                                    div.preferences-wrapper-price
+                                                                        | #{user_subscription_card.stripe_card_brand}
+                                                                
+                                                            label.preferences-wrapper
+                                                                div.custom-control.custom-radio
+                                                                    input.custom-control-input.required(
+                                                                        id=`card_default`
+                                                                        type='radio',
+                                                                        name='card_id',
+                                                                        value=`new_card`
+                                                                    )
+                                                                    label.custom-control-label(
+                                                                        for=`card_default`
+                                                                    )
+
+                                                                div.billing-plan
+                                                                    div.preferences-wrapper-title
+                                                                        | Add New Card
+
+                                                    #collapseCC.accordion-collapse.collapse.show(data-bs-parent='#accordionPayment' class=(user_subscription_cards && user_subscription_cards.length !== 0 ?' displaynone' : ''))
+                                                        .accordion-body
+                                                            .mb-3
+                                                                label.form-label Credit Card Number
+                                                                input.form-control.required(
+                                                                    type='text' id="card_number" name="card_number" maxlength="16" placeholder='4242 4242 4242 4242' onkeypress="return isNumber(event)"
+                                                                )
+                                                            .row
+                                                                .col-lg-6
+                                                                    label.form-label Expiry date
+                                                                    input.form-control.required(
+                                                                        type='text' id="expiry_date_id" maxlength="5" name="expiry_date" onkeyup="formatString(event);" placeholder='MM/YY'
+                                                                    )
+
+                                                                .col-lg-6
+                                                                    label.form-label CVV
+                                                                    input.form-control.required(
+                                                                        type='text' name="card_cvv" placeholder='CVV' maxlength="3" id="cvv_id" onkeypress="return isNumber(event)"
+                                                                    )
+
+                                div.col-xl-8.offset-xl-4
+                                    input(type='hidden' , id="store_id", name="store_id" ,value =store_id)
+                                    button#submitBilling.btn.btn-primary.w-100(type="submit" disabled="disabled") Subscription
+                                    <button id="loading_button" class="btn btn-primary w-100 displaynone" type="button" disabled>
+                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                        |Loading...
+                                    </button>
+
+                </div>
+            </div>
+block scripts
+    script(type='text/javascript', src='/assets/js/custom/creditCardValidator.js')
+    script(type='text/javascript', src='/assets/js/custom/billing_details.js')

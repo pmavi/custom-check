@@ -1,0 +1,123 @@
+extends ../../layouts/backend_layout
+
+block content 
+    main#main.main
+        div.pagetitle.row
+            h1.col-6 Buy Link
+            div.col-6.d-flex.justify-content-end
+                button.btn.btn-primary.me-sm-5 Create new buy link
+                
+            section.section.buy-link
+                form.row
+                    div.row
+                        div.col-xl-4
+                            div
+                                div.buy-link-card.mt-5.d-flex.flex-column
+                                    h2 Products        
+                                    p Select the product you want to generate a direct buy link, re-directing your customers directly to your checkout.
+
+                        div.col-xl-8
+                            div.card.mt-5
+                                div.card-body.pt-3
+                                    div.tab-content.pt-2
+                                        div.card-items-wrapper
+                                            div#products-list
+                                            div.card-items-footer.row(data-function='picker-result-container')
+                                                div.col-6 Actions
+                                                div.col-6.d-flex.justify-content-end
+                                                    button#addProducts.btn.btn-secondary(data-picker-result-order='before', data-route-url='products_app_buylinks_path', data-target='#productsPicker', data-toggle='modal', type='button')
+                                                        | Add product
+
+
+                    div.row
+                        div.col-xl-4
+                            div
+                                div.buy-link-card.pt-4.d-flex.flex-column
+                                    h2 Buy Link       
+                                    p
+                                        | The buy link is created from the product variety, quantity and discount code. Make sure to 
+                                        span.highlight save your link 
+                                        | after creating it..
+
+                        div.col-xl-8
+                            div.card.mt-5
+                                div.card-body.pt-3
+                                    div.tab-content.pt-2
+                                        div.card-section
+                                            div.mt-1
+                                                div
+                                                    label Buy link URL
+                                                    input(type='hidden' , id="store_id" , name="store_id" ,value=store_id)
+                                                    span.ml-2.fs-10.highlight(data-function='status', style='display: none;') Link is updated.
+                                                div.form-row
+                                                    div.form-group.col
+                                                        div.input-group.clipboard-control
+                                                            .input-group.mb-3
+                                                                input#buylink-url.form-control( placeholder='https://shoeskartelse.checkout-x.com/f/RL6H601G/b/BUYLINK_DATA', readonly='', aria-describedby='copy-buy-link')
+                                                                |                       
+                                                                button.copy-buy-link.input-group-text(type="button") Copy
+    
+                                                div.form-row.my-3
+                                                    div.form-group.col
+                                                        div.custom-control.custom-checkbox.ml-2.mb-2
+                                                        input(name='buylink[apply_discount]', type='hidden', value='0')
+                                                        input#buylink_apply_discount.custom-control-input(data-function='apply-discount', data-toggle='collapse', data-target='#discountable', type='checkbox', value='1', name='buylink[apply_discount]')
+                                                        label.custom-control-label.ms-2(for='buylink_apply_discount') Apply discount code
+                                                    div#discountable.collapse
+                                                        label(for='buylink_discount') Discount Code
+                                                        div.form-row
+                                                            div.form-group.col
+                                                            input#buylink_discount.form-control.pt-0.filled(data-function='discount', type='text', name='buylink[discount]')
+                                                            div.dark.mt-2
+                                                                | *Make sure that you have already created your discount code in your e-commerce platform
+                div#productsPicker.modal.fade(aria-hidden='true', data-function='products-picker', role='dialog', tabindex='-1')
+                    div.modal-dialog.modal-dialog-scrollable.modal-lg
+                        div.modal-content
+                            div.modal-header.row
+                                div.modal-header-titled.col-6
+                                    h3.modal-title Select items
+                                div.col-6.d-flex.justify-content-end
+                                    div.btn.btn-icon.btn-sm.btn-active-icon-primary.model_close(data-dismiss="modal", aria-label="Close", model_id="add_vendors_model")
+                                        span.svg-icon.svg-icon-1
+                                            svg(width='24', height='24', viewBox='0 0 24 24', fill='none', xmlns='http://www.w3.org/2000/svg')
+                                                rect(opacity='0.5', x='6', y='17.3137', width='16', height='2', rx='1', transform='rotate(-45 6 17.3137)', fill='currentColor')
+                                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                rect(x='7.41422', y='6', width='16', height='2', rx='1', transform='rotate(45 7.41422 6)', fill='currentColor')
+                            div.searchbox-wrapper
+                                div.searchbox.m-3
+                                    label
+                                        i.icon.ion-ios-search-strong
+                                    input.w-100.form-control(data-function='products-search', placeholder='Search...', type='text')
+                            div.modal-body(data-function='items-container')
+                                div.row
+                                    div.col-xl-1 
+                                        input(type="checkbox" id="1")
+                                    div.col-xl-2
+                                        <img src="/assets/img/gps.png" width="50" height="50" id ="1_img">
+                                    div.col-xl-9
+                                        label(id="1_lbl") Testing 1....    
+                                    br
+                                    div.col-xl-1 
+                                        input(type="checkbox" id="2")
+                                    div.col-xl-2
+                                        <img src="/assets/img/gps.png" width="50" height="50" id="2_img">
+                                    div.col-xl-9
+                                        label(id="2_lbl") Testing 2....   
+                                    br
+                                    div.col-xl-1 
+                                        input(type="checkbox" id="3")
+                                    div.col-xl-2
+                                        <img src="/assets/img/gps.png" width="50" height="50" id="3_img">
+                                    div.col-xl-9
+                                        label(id="3_lbl") Testing 3....                                      
+                                    
+                            div.modal-loader
+                                div#pickerLoader.loader 
+
+                            div.modal-footer
+                                a.btn.btn-secondary(data-dismiss='modal', href='javascript:void(0);')
+                                    | Close
+                                button.btn.btn-primary(id ="add-product-btn" type="button" )
+                                    | Add
+block scripts
+    script(type='text/javascript', src='/assets/js/custom/buy_link.js')                              

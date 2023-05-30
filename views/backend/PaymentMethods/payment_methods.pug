@@ -1,0 +1,42 @@
+extends ../../layouts/backend_layout
+
+block content 
+    main#main.main
+        .row.align-items-center.site-breadcrumb.mb-3
+            h1 Payment Settings
+            nav
+                ol.breadcrumb
+                    li.breadcrumb-item
+                        a(href=`/${store_id}/dashboard`) Dashboard
+                    li.breadcrumb-item.active Payment
+                        
+        // End Page Title
+        section.section.profile
+            div.row
+                div.col-lg-12
+                    div.card
+                        div.card-header.text-center.textsm-start.py-4
+                            .d-sm-flex.justify-content-between
+                                h5 Payment Methods
+                                .p-payment
+                                    a.btn.btn-primary(href=`/${store_id}/add-payment-method`,type="button")
+                                        | Add Payment Method
+                        div.card-body
+                                table.table.datatable.bootstrap_datatable
+                                    thead
+                                        tr
+                                            th(scope="col") Payment Method
+                                            th(scope="col") Processing Mode
+                                    tbody
+                                        if payment_methods.length > 0
+                                            each payment_method in payment_methods
+                                                tr
+                                                    td
+                                                        i.bi.bi-card-heading
+                                                        | #{payment_method.method_name}
+                                                    td
+                                                        a.btn.btn-primary(
+                                                            type="button",
+                                                            href=`/${store_id}/payment-method/${payment_method.id}`
+                                                        ) Live Transactions
+                                      

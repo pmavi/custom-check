@@ -1,0 +1,186 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(content="width=device-width, initial-scale=1.0", name="viewport")
+
+    // Favicons
+    link(href="/assets/img/fav.png", rel="icon")
+    link(href="/assets/img/fav.png", rel="apple-touch-icon")
+    // Google Fonts
+    link(href="https://fonts.gstatic.com", rel="preconnect")
+    link(href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i", rel="stylesheet")
+    // Vendor CSS Files
+    link(rel="stylesheet", href="/assets/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/assets/css/bootstrap-icons.css")
+    link(rel="stylesheet", href="/assets/css/bootstrap-notify.css")
+
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@6.6.6/css/flag-icons.min.css")
+
+    // Template Main CSS File
+    link(rel="stylesheet", href="/assets/css/style.css")
+    link(rel="stylesheet", href="/assets/css/developer.css")
+
+    script.
+      let ajax_url = `!{process.env.APP_URL}`;
+      let store_url = `!{store_id}`;
+
+    body#kt_body(
+      class=`${(!store_id) ? "toggle-sidebar": ""} ${right_sides && right_sides.length == 0 ? "toggle-sidebar": ""}`
+    )
+      header#header.header.fixed-top.d-flex.align-items-center
+
+        div.d-flex.align-items-center.justify-content-between
+          a.logo.d-flex.align-items-center(
+            href=(store_id?`/${store_id}/dashboard`:'/store-connect')
+          )
+            img(src='/assets/img/logo_checkout.png', alt='logo')
+          if(store_id && !right_sides)
+            i.bi.bi-list.toggle-sidebar-btn
+
+        nav.header-nav.ms-auto
+          ul.d-flex.align-items-center
+            li.nav-item.d-block.d-lg-none
+              a.nav-link.nav-icon.search-bar-toggle(href='#')
+                i.bi.bi-search
+            if(select_store)
+              |
+            else
+              li.nav-item.dropdown.pe-3.store_li_design
+                a.nav-link.nav-manage_store.d-flex.align-items-center.pe-0(href='#', data-bs-toggle='dropdown')
+                  img.img(src='/assets/img/shopify_logo.png', alt=(session.auth_store?`${session.auth_store.store_name}`:``))
+                  span.d-none.d-md-block.dropdown-toggle.ps-2
+                    | #{session.auth_store?session.auth_store.store_name:``}
+                ul.dropdown-menu.dropdown-menu-end.dropdown-menu-arrow.manage_store
+                  if(session.store_details)
+                    each val, index in session.store_details
+                      li
+                        a.dropdown-item.d-flex.align-items-center(href=`#` onclick=`changeStore('${JSON.stringify(val)}')`)
+                          img.img(src='/assets/img/shopify_logo.png', alt=`${val.store_name}` style="max-width: 15px;")
+                          span #{val.store_name}
+                      li
+                        hr.dropdown-divider
+                  li
+                    a.dropdown-item.d-flex.align-items-center(href=(store_id?`/create-new-store/${Buffer.from(store_id).toString('base64')}`: '#'))
+                      i.bi.bi-plus-circle-fill
+                      span Add a New Store
+                  if session && session.store_details && session.store_details.length>0
+                    li
+                      hr.dropdown-divider
+                    li
+                      a.dropdown-item.d-flex.align-items-center(href=`/${store_id}/manage-store`)
+                        i.bi.bi-flag-fill
+                        span Manage Store
+
+
+            li.nav-item.dropdown.pe-3
+              a.nav-link.nav-profile.d-flex.align-items-center.pe-0(href='#', data-bs-toggle='dropdown')
+                img.rounded-circle(
+                  src=`${auth_user && auth_user.avatar ? "/uploads/" + auth_user.avatar : "/assets/img/profile-img.jpg"}`,
+                  alt='Profile'
+                )
+                span.d-none.d-md-block.dropdown-toggle.ps-2
+                  | #{auth_user && auth_user.first_name} #{auth_user && auth_user.last_name}
+              ul.dropdown-menu.dropdown-menu-end.dropdown-menu-arrow.profile
+                li.dropdown-header
+                  h6
+                    | #{auth_user && auth_user.first_name} #{ auth_user && auth_user.last_name}
+                li
+                  hr.dropdown-divider
+                li
+                  a.dropdown-item.d-flex.align-items-center(
+                    href=(store_id?`/accountSetting/${Buffer.from(store_id).toString('base64')}`:`/accountSettings`)
+                  )
+                    i.bi.bi-gear
+                    span Account Settings
+                li
+                  hr.dropdown-divider
+                li
+                  a.dropdown-item.d-flex.align-items-center(href='/logout')
+                    i.bi.bi-box-arrow-right
+                    span Sign Out
+
+      if(store_id)
+        if(right_sides)
+          if(right_sides.length > 0)
+            aside#sidebar.sidebar
+              ul#sidebar-nav.sidebar-nav
+                each right_side, right_side_index in right_sides
+                  li.nav-item
+                    a.nav-link(href=`${right_side.menu_link}`)
+                      i.bi.bi-grid
+                      span #{right_side.menu_label}
+        else
+          aside#sidebar.sidebar
+            ul#sidebar-nav.sidebar-nav
+              li.nav-item
+                a(href=`/${store_id}/dashboard` class=`nav-link ${active_menu === "dashboard" ? "active" : ""}`)
+                  i.bi.bi-grid
+                  span Dashboard
+
+              li.nav-item
+                a(href=`/${store_id}/customize-checkout` class=`nav-link ${active_menu === "customize-checkout" ? "active" : ""}`)
+                  i.bi.bi-circle
+                  span Customize Checkout
+
+              li.nav-item
+                a(href=`/${store_id}/payment-methods` class=`nav-link ${active_menu === "payment-methods" ? "active" : ""}`)
+                  i.bi.bi-currency-exchange
+                  span Payment Methods
+
+              li.nav-item
+                a(href=`/${store_id}/shipping-rates` class=`nav-link ${active_menu === "shipping-rates" ? "active" : ""}`)
+                  i.bi.bi-grid
+                  span Shipping Rates
+
+              li.nav-item
+                a(href=`/${store_id}/translations` class=`nav-link ${active_menu === "translations" ? "active" : ""}`)
+                  i.bi.bi-translate
+                  span Translations
+              
+              li.nav-item
+                a(href=`/${store_id}/discounts` class=`nav-link ${active_menu === "discounts" ? "active" : ""}`)
+                  i.bi.bi-translate
+                  span Discounts
+              //- li.nav-item
+              //-     a(href=`/${store_id}/taxes` class=`nav-link ${active_menu === "taxes" ? "active" : ""}`)
+              //-         i.bi.bi-grid
+              //-         span Taxes
+
+              li.nav-item
+                  a(href=`/${store_id}/billing-details` class=`nav-link ${active_menu === "billing-details" ? "active" : ""}`)
+                      i.bi.bi-grid
+                      span Billing Details
+
+              li.nav-item
+                a(href=`/${store_id}/buy-link` class=`nav-link ${active_menu === "buy-link" ? "active" : ""}`)
+                  i.bi.bi-grid
+                  span Buy Link
+
+              li.nav-item
+                a(href=`/${store_id}/upsell` class=`nav-link ${active_menu === "upsell" ? "active" : ""}`)
+                  i.bi.bi-grid
+                  span Upsell
+              
+              li.nav-item
+                a(href=`/${store_id}/custom-domain` class=`nav-link ${active_menu === "custom-domain" ? "active" : ""}`)
+                  i.bi.bi-grid
+                  span Custom Domain
+
+      block content
+
+    script(type='text/javascript', src='/assets/js/jquery.js')
+    script(type='text/javascript', src='/assets/js/bootstrap.min.js')
+    script(type='text/javascript', src='/assets/js/jquery.validate.min.js')
+    script(type='text/javascript', src='/assets/js/tinymce.min.js')
+    script(type='text/javascript', src='/assets/js/main.js')
+    script(type='text/javascript', src='/assets/js/bootstrap.bundle.js')
+    script(type='text/javascript', src='/assets/js/bootstrap-notify.min.js')
+
+    script(type='text/javascript', src='https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js')
+    script(type='text/javascript', src='https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js')
+    script(type='text/javascript',src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.js')
+    script(type='text/javascript', src='/assets/js/sweetalert.min.js')
+    script(type='text/javascript', src='/assets/js/custom/common.js')
+
+    block scripts

@@ -1,0 +1,38 @@
+extends ../../layouts/backend_layout
+
+block content 
+    main#main.main
+        .pagetitle
+            h1 Invoices
+        section.section.invoices
+            div.row
+                div.col-lg-12
+                    div.card
+                        div.card-header.py-4
+                        div.card-body
+                            table.table 
+                                thead
+                                    tr 
+                                        th Invoice#
+                                        th Due Date
+                                        th Paid Date
+                                        th Status
+                                        th Amount
+                                    div.row    
+                                    each invoice in invoices
+                                        tr.table-row( store_id=`${store_id}`)
+                                            td #{invoice?invoice.invoice_number:'n/a'}
+                                            td #{invoice?timeConverter(invoice.due_date):'n/a'}
+                                            td #{invoice?timeConverter(invoice.created):'n/a'} 
+                                            td #{invoice?invoice.status:'n/a'} 
+                                            td #{invoice?parseFloat(invoice.amount_paid).toFixed(2):'n/a'}
+block scripts
+    script.
+        jQuery(document).ready(function () {
+            jQuery(document).on("click", ".table-row", function () {
+            let id = jQuery(this).attr('id');
+            let store_id = jQuery(this).attr("store_id");
+
+            window.location.href = `${ajax_url}/${store_id}/invoice-details`;
+            });
+        })

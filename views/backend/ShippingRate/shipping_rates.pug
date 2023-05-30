@@ -1,0 +1,53 @@
+extends ../../layouts/backend_layout
+
+block content 
+    main#main.main
+        .row.align-items-center.site-breadcrumb.mb-3
+            h1 Shipping Rates
+            nav
+                ol.breadcrumb
+                    li.breadcrumb-item
+                        a(href=`/${store_id}/dashboard`) Dashboard
+                    li.breadcrumb-item.active Shipping Rates
+                    
+        section.section.shipping_rates
+            div.row
+                div.col-lg-12
+                    div.card
+                        div.card-header.text-center.textsm-start.py-4
+                            .d-sm-flex.justify-content-between
+                                    h5 Shipping Rates
+                                    .p-payment
+                                        a.btn.btn-primary(href=`/${store_id}/add-shipping-rate`)
+                                            | Add Shipping Rate
+
+                        div.card-body
+                            table.table.datatable.bootstrap_datatable
+                                thead
+                                    tr 
+                                        th Name
+                                        th Price
+                                        th Weight range
+                                        th Price range
+                                        th Countries
+                                tbody   
+                                    each shipping in shipping_rates
+                                        tr.table-row(id=`${shipping.id}` store_id=`${store_id}`)
+                                            td #{shipping?shipping.shipping_rate_name:'n/a'}
+                                            td #{shipping?shipping.shipping_rate_price:'n/a'}
+                                            td #{shipping?'from '+shipping.shipping_rate_min_weight+' Kg ':'n/a'} #{shipping?'to '+shipping.shipping_rate_max_weight+' Kg ':'n/a'} 
+                                            td #{shipping?'from '+shipping.shipping_rate_min_amount:'n/a'} #{shipping?'to '+shipping.shipping_rate_max_amount:'n/a'}
+                                            td
+                                                if shipping.country_codes.length > 0 
+                                                each country_codes, index in shipping.country_codes
+                                                    if index == 0
+                                                        .d-flex.justify-content-start.w-100
+                                                            .text-truncate.mr-3
+                                                                span(class=`flags-icons fi fi-${country_codes.toLowerCase()}`)
+                                                            if  shipping.country_codes.length > 3
+                                                                .mr-3.d-none.d-md-block.count  + #{shipping.country_codes.length-1} others
+                                                            else
+                                                                .mr-3.d-none.d-md-block.count  + #{shipping.country_codes.length} other 
+
+block scripts                               
+    script(type='text/javascript', src='/assets/js/custom/shipping_rates.js')

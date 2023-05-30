@@ -1,0 +1,13 @@
+extends ../../layouts/frontend
+block content
+    .email-template
+        .email-template-container
+            .email-template-inner-view
+                a.email-template-heading Custom Checkout
+            p.email-template-greetings Hi,
+            p Here is your password reset Otp and it is valid for 30 minutes
+            h2.email-template-otp-btn #{otp}
+            p.email-template-footer Regards,
+                br
+                | Custom Checkout
+            hr.email-template-ending-hr

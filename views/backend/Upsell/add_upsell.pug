@@ -1,0 +1,212 @@
+extends ../../layouts/backend_layout
+
+block content 
+  main#main.main
+    .pagetitle
+      h1 Add New Upsell
+    section.section.upsell
+      div
+      div.row
+        div.col-xl-8
+          div
+            div.upsell-card.pt-4.d-flex.flex-column
+              h2 Upsell Triggers
+              p Select a product that will trigger the post-purchase upsell when bought. You can select products and categories. We recommend not to mix them as triggers.
+            div.card
+              div.card-body.pt-3
+                div.tab-content.pt-2.row.align-items-center
+                  div.col-6.selected-products
+                    | Select a product or category trigger
+                  div.col-6.d-flex.justify-content-end 
+                    button#add_product_button.btn.btn-secondary.rounded-r-none.mx-1 Add Product
+                    button#add_category_button.btn.btn-primary.border-l-0.rounded-l-none.mx-1 Add category
+
+            div.upsell-card.pt-4.d-flex.flex-column
+              h2 Upsell Offer Title
+              p Add an attention-grabbing title for your post-purchase upsell. Offer title is required for your upsell.
+            div.card
+              div.card-body.pt-3
+                div.tab-content.pt-2
+                  div.space-y-4
+                    label.block.text-sm.font-weight-bold(for="") Title
+                    div
+                      input.text-sm.form-control(type="text" placeholder="Wait! Limited time offer!" value="Wait! Limited time offer!")
+
+            div.upsell-card.pt-4.d-flex.flex-column
+              h2 Post-Purchase Upsell Offers
+              p Create up to 3 product upsell offers. When the customer adds or discards an upsell, the next offer will be shown.
+            div.card
+              div.card-body.pt-3
+                div.tab-content.pt-2.row
+                  div.p-4.pb-0(data-rbd-droppable-id="droppable" data-rbd-droppable-context-id="0")
+                  div.p-4.pt-0.space-y-2.col-lg-4
+                    span.block.text-sm.font-bold Offer #1
+                    div.offerClass.border.mt-2.rounded
+                      div.d-flex.justify-content-center.1stUpsell
+                        button#add_product_for_offer_1.bg-white.border-0(type="button")
+                          div.text-sm.text-gray.d-flex.align-items-center
+                            span.text-green
+                              svg.plusImg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor")
+                                path(fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd")
+                            span.text-gray Select a product to upsell
+
+                  div.p-4.pt-0.space-y-2.col-lg-4
+                    span.block.text-sm.font-bold Offer #2
+                    div.offerClass.border.mt-2.rounded
+                      div.d-flex.justify-content-center.2ndUpsell
+                        button#add_product_for_offer_2.bg-white.border-0(type="button")
+                          div.text-sm.text-gray.d-flex.align-items-center
+                            span.text-green
+                              svg.plusImg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor")
+                                path(fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd")
+                            span.text-gray Select a product to upsell
+
+                  div.p-4.pt-0.space-y-2.col-lg-4
+                    span.block.text-sm.font-bold Offer #3
+                    div.offerClass.border.mt-2.rounded
+                      div.d-flex.justify-content-center.3rdUpsell
+                        button#add_product_for_offer_3.bg-white.border-0(type="button")
+                          div.text-sm.text-gray.d-flex.align-items-center
+                            span.text-green
+                              svg.plusImg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor")
+                                path(fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd")
+                            span.text-gray Select a product to upsell
+        div.col-xl-4
+          div
+            div.upsell-card.pt-4.d-flex.flex-column
+              h2 Summary
+            div.card.card_c
+              div.card-body.pt-3
+                div.tab-content.pt-2
+                  div.row
+                    div.flex.items-center.col-10
+                      div.flex-1 Active
+                    div.col-2
+                      .form-check.form-switch
+                        input#flexSwitchCheckDefault.form-check-input(type='checkbox', role='switch')
+                div
+                  hr
+                  div 
+                    ul.text-sm.list-disc.list-inside.space-y-4
+                      li.space-y-4 When a customer buys:
+                      li.space-y-4 These offers will be shown:
+                        div.text-muted
+                          | Wait! Limited time offer!
+
+            div.card
+              div.card-body.pt-3
+                div.tab-content.pt-2
+                  div
+                    div.space-y-4
+                      h3.text-sm.font-weight-bold.text-uppercase Need help?
+                      p.text-sm Make the most out of your post-purchase upsells by learning more in our Help Center or reaching out to our customer support team.
+                      div.mt-4.text-center
+                        a.text-sm(href="") Read more about upsells
+      div.row
+        div.col-12.d-flex.justify-content-end 
+          button.btn.btn-primary.me-3 Create Upsell   
+
+      div#addproductModal.modal.fade(aria-hidden='true', data-function='products-picker', role='dialog', tabindex='-1')
+        div.modal-dialog.modal-dialog-scrollable.modal-lg
+          div.modal-content
+            div.modal-header.row
+              div.modal-header-titled.col-6
+                h3.modal-title Select items for your upsell trigger
+                span.text-sm.text-muted 0 items selected
+              div.col-6.d-flex.justify-content-end
+                div.custom-control.custom-checkbox
+                  input#region-checkbox-Americas.custom-control-input(data-function='region-checkbox', data-region='Americas', type='checkbox')
+                  label.custom-control-label(for='region-checkbox-Americas')
+                    | Select all
+              div.searchbox
+                label
+                  i.icon.ion-ios-search-strong
+                input.w-100.form-control(data-function='products-search', placeholder='Search...', type='text')
+            div.modal-body.products-body(data-function='items-container')
+              if products
+                input#products(type='hidden', value=products)
+            div.modal-footer
+              a.btn.btn-secondary(data-dismiss='modal', href='javascript:void(0);')
+                | Close
+              a.btn.btn-primary(data-function='add-products', id="add_product")
+                | Add Product  
+
+      div#addcategoryModal.modal.fade(aria-hidden='true', data-function='products-picker', role='dialog', tabindex='-1')
+        div.modal-dialog.modal-dialog-scrollable.modal-lg
+          div.modal-content
+            div.modal-header.row
+              div.modal-header-titled.col-6                                
+                h3.modal-title Select items for your upsell trigger
+                span.text-sm.text-muted 0 items selected
+              div.col-6.d-flex.justify-content-end
+                div.custom-control.custom-checkbox
+                  input#region-checkbox-Americas.custom-control-input(data-function='region-checkbox', data-region='Americas', type='checkbox')
+                  label.custom-control-label(for='region-checkbox-Americas')
+                    | Select all
+              div.searchbox
+                label
+                  i.icon.ion-ios-search-strong
+                input.w-100.form-control(data-function='products-search', placeholder='Search...', type='text')
+            div.modal-body(data-function='items-container')
+            div.modal-footer
+              a.btn.btn-secondary(data-dismiss='modal', href='javascript:void(0);')
+                | Close
+              a.btn.btn-primary(data-function='add-products', href='javascript:void(0);')
+                | Add Category   
+
+      div#addproductforoffer1.modal.fade(aria-hidden='true', data-function='products-picker', role='dialog', tabindex='-1')
+        div.modal-dialog.modal-dialog-scrollable.modal-lg
+          div.modal-content
+            div.modal-header.row
+              div.modal-header-titled.col-6
+                h3.modal-title Select product for your upsell offer
+              div.col-6.d-flex.justify-content-end
+              div.searchbox
+                label
+                  i.icon.ion-ios-search-strong
+                input.w-100.form-control(data-function='products-search', placeholder='Search...', type='text')
+            div.modal-body.products-body1(data-function='items-container')
+            div.modal-footer
+              a.btn.btn-secondary(data-dismiss='modal', href='javascript:void(0);')
+                | Close
+              a.btn.btn-primary#add_products-upsell1(data-function='add-products')
+                | Add Product       
+
+      div#addproductforoffer2.modal.fade(aria-hidden='true', data-function='products-picker', role='dialog', tabindex='-1')
+        div.modal-dialog.modal-dialog-scrollable.modal-lg
+          div.modal-content
+            div.modal-header.row
+              div.modal-header-titled.col-6
+                h3.modal-title Select product for your upsell offer
+              div.col-6.d-flex.justify-content-end
+              div.searchbox
+                label
+                  i.icon.ion-ios-search-strong
+                input.w-100.form-control(data-function='products-search', placeholder='Search...', type='text')
+            div.modal-body.products-body2(data-function='items-container')
+            div.modal-footer
+              a.btn.btn-secondary(data-dismiss='modal', href='javascript:void(0);')
+                | Close
+              a.btn.btn-primary#add_products-upsell2(data-function='add-products')
+                | Add Product  
+
+      div#addproductforoffer3.modal.fade(aria-hidden='true', data-function='products-picker', role='dialog', tabindex='-1')
+        div.modal-dialog.modal-dialog-scrollable.modal-lg
+          div.modal-content
+            div.modal-header.row
+              div.modal-header-titled.col-6
+                h3.modal-title Select product for your upsell offer
+              div.col-6.d-flex.justify-content-end
+              div.searchbox
+                label
+                  i.icon.ion-ios-search-strong
+                input.w-100.form-control(data-function='products-search', placeholder='Search...', type='text')
+            div.modal-body.products-body3(data-function='items-container')
+            div.modal-footer
+              a.btn.btn-secondary(data-dismiss='modal', href='javascript:void(0);')
+                | Close
+              a.btn.btn-primary#add_products-upsell3(data-function='add-products')
+                | Add Product  
+
+block scripts
+  script(type='text/javascript', src='/assets/js/custom/upsell.js')

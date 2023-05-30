@@ -1,0 +1,98 @@
+extends ../../layouts/backend_layout
+
+block content 
+    main#main.main
+        .row.align-items-center.site-breadcrumb.mb-3
+            h1 Custom Domain
+            nav
+                ol.breadcrumb
+                    li.breadcrumb-item
+                        a(href=`/${store_id}/dashboard`) Dashboard
+                    li.breadcrumb-item
+                        a(href=`/${store_id}/custom-domain`) Custom Domain
+                    li.breadcrumb-item.active Add Custom Domain
+
+        
+        section.section.add-custom-domain-data
+            form#verify_domain.row(method="post")
+                input.form-control( type= 'hidden', name= "store_id", id="store_id" , value= store_id)
+                input.form-control( type= 'hidden', name= "id",value= custom_domain?custom_domain.id:'')
+                div.row
+                    div.col-xl-5
+                        div
+                            div.add-shipping-rate-card.d-flex.flex-column.card_lef
+                                h2 1. Open your Domain provider 
+                                h2 and go to your DNS settings
+                                .py-2   
+                                span  Your domain provider is the place you bought &
+                                span  manage your domain (e.g. GoDaddy, Namecheap,
+                                span Shopify)
+
+                    div.col-xl-7
+                        div.card
+                            div.card-body.pt-3
+                                div
+                                    p Follow the step by step instructions below based on your provider
+                                hr
+                                div.row 
+                                    div.col-xl-3 
+                                        a.domain-hosting(href="https://help.checkout-x.com/en/articles/5039886-set-a-custom-domain-on-checkout-using-godaddy") GoDaddy 
+                                    div.col-xl-3 
+                                        a.domain-hosting(href="https://help.checkout-x.com/en/articles/5040013-set-a-custom-domain-on-checkout-using-namecheap") Namecheap 
+                                    div.col-xl-3 
+                                        a.domain-hosting(href="https://help.checkout-x.com/en/articles/5040019-set-a-custom-domain-on-checkout-using-shopify") Shopify
+                                    div.col-xl-3 
+                                        a.domain-hosting(href="https://help.checkout-x.com/en/articles/5040027-set-a-custom-domain-option-on-checkout-with-other-domain-providers") Other Providers
+
+                                              
+                div.row.create-dns                         
+                    div.col-xl-5
+                        div
+                            div.add-shipping-rate-card.d-flex.flex-column.card_lef
+                                h2 2. Create a DNS CNAME 
+                                h2 Record  
+                                span  Create a new CNAME record in your domain provider
+                                span using the values on the right. When done click Verify.
+
+                    div.col-xl-7
+                        div.card
+                            div.card-body
+                                div.column-domain
+                                    label Host/Name 
+                                    div.row.mb-3
+                                        div.input-group.col
+                                            input.form-control(
+                                                type="text"
+                                                readonly 
+                                                name="domain_host_name"
+                                                id="domain_hostname"
+                                                value= custom_domain ? custom_domain.domain_host_name:''
+                                            )
+                                            span.input-group-text(type="button" id="copy-domain-host") Copy
+                                                 
+                                div.column-domain
+                                    label Points to
+                                    div.row.mb-3
+                                        div.input-group.col
+                                            input.form-control(
+                                                type="text"
+                                                id="points_to_domain"
+                                                readonly
+                                                name="points_to_domain"
+                                                 value= custom_domain ? custom_domain.points_to_domain:''
+
+                                            )
+                                            span.input-group-text(type="button" id="copy-domain-point") Copy
+              
+                div.row 
+                    div.col-12.d-flex.justify-content-end
+                        
+                        button.btn.btn-danger.delete_domain.me-4(type="button" id=`${custom_domain?custom_domain.id:''}` store_id=`${store_id}` ) DELETE DOMAIN
+
+                        button.btn.btn-primary.me-4(type="submit") VERIFY DOMAIN
+
+    
+block scripts
+    script(type='text/javascript', src='/assets/js/custom/custom_domain.js')
+    script(type='text/javascript', src='/assets/js/sweetalert.js') 
+    script(type='text/javascript', src='/assets/js/sweetalert.min.js') 

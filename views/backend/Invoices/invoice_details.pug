@@ -1,0 +1,121 @@
+extends ../../layouts/backend_layout
+
+block content 
+  main#main.main.checkout
+    .pagetitle
+      h1 Checkout
+
+      nav
+        ol.breadcrumb
+          li.breadcrumb-item
+            a(href=`${store_id}/dashboard`) Dashboard
+          li.breadcrumb-item.active Checkout
+
+    section.section.profile
+      form#customize_checkout_form.row(method="post")
+        input.form-control( type= 'hidden', name= "store_id", value= store_id)
+       
+        // General Sections
+        .row#invoice-details
+          .col-xl-8
+            .card
+              .card-body.pt-3.form_input
+                br
+                .row
+                    .col-sm-9
+                        img(src="/assets/img/checkout-invoice.png")
+                    .col-sm-3 
+                        h5.flex.justify-content-end 
+                        | Invoice 
+                        h5.invoice_no 3434353534
+                          
+                br
+                br
+                .row 
+                    .col-sm-4 
+                        h5.bold-text1  ISSUER
+                       
+                        div.bold-text2 Eri Digital Ltd
+                        div 
+                        | Mila Rodina st. 11
+                        div 
+                        | Mila Rodina st. 11
+                        div 
+                        | Bulgaria
+                        div.bold-text2 VAT ID:
+                        
+                        div 
+                        | BG204956791
+                    .col-sm-4 
+                        h5.bold-text1   CUSTOMER
+                       
+                        div.bold-text2  EcomShops
+                        
+                        div 
+                        | 11 RUE DE LA
+                        div GARE
+                        div  Cachan 94230,
+                        div  United Arab Emirates
+                        div.bold-text2   Company ID 
+                        div  9897897
+
+                    .col-sm-4 
+                        h5.bold-text1  DATE  
+                        div.bold-text2  12.10.2022
+                        div  Method: PayPal
+                        div  Status: Paid
+                br
+                br
+                br
+                h5.bold-text2 CHARGES
+
+                hr 
+                .row 
+                    .col-sm-6 
+                     |  Checkout X - Subscription Plan ( Standard )
+                     br
+                     |  Checkout X - Transaction Fees
+                    .col-sm-4 
+                    | €39.00
+                    br
+                    | €39.1 
+                    br
+                hr 
+                .row 
+                    .col-sm-6 
+                     |  Subtotal
+                     br
+                     |  VAT ( 0% - Reverse Charge )
+                     div
+                     | Total 
+                    .col-sm-4 
+                    | €39.31
+                    br
+                    | €0.00 
+                    br
+                    | €39.31     
+          .col-xl-4
+            .tab-content.pt-2
+                .row
+                    .col-9
+                        label.form-label Invoice Paid
+                        label.form-label Payment received on 12.10.2022
+                    .col-3
+                        a(type="button" id="print-invoice") Print   
+                   
+block scripts
+    script.
+        jQuery(document).ready(function () {
+           $('#print-invoice').click(function(){
+            var mywindow = window.open();
+            var content = $('#invoice-details').innerHTML;
+            mywindow.document.write(content);
+            mywindow.print();
+            return false;
+            });
+          
+        })
+                 
+
+      
+

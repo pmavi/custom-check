@@ -1,0 +1,71 @@
+extends ../../layouts/backend_layout
+
+block content
+  main#main.main
+    .row.align-items-center.site-breadcrumb.mb-5
+      h1 Dashboard
+      nav
+        ol.breadcrumb
+          li.breadcrumb-item Home
+          li.breadcrumb-item.active Dashboard
+
+    section.section.dashboard
+      .col-md-6
+        .sec_img 
+          img(src='/assets/img/dashboard.png')
+
+      .col-md-6
+            .pagetitle  
+              h1 Get started with Checkout X
+              p Start processing checkouts in no time. Just follow the steps bellow and when done you can publish your checkout:
+
+            .card
+              .card-body.text-sm-start
+                div.d-flex.align-items-center.justify-content-between.card_custom
+                  span 1. Confirm Shipping Rates on your checkout
+                  if(session.auth_store && !session.auth_store.shipping_rate)
+                    div.card-button.text-center.text-sm-end.mt-3.mt-sm-0 
+                      a#shipping_rates_button.btn.btn-primary(href=`/${session.auth_store.id}/shipping-rates`) Publish
+                  else
+                    <i id="shipping_rates_icon" class="bi bi-check-circle-fill card-button-icon"></i>
+
+
+            .card
+              .card-body.text-sm-start
+                div.d-flex.align-items-center.justify-content-between.card_custom
+                  span 2. Add Payment Methods to your checkout
+                  if(session.auth_store && !session.auth_store.payment_method)
+                    div.card-button.text-center.text-sm-end.mt-3.mt-sm-0 
+                      a#payment_methods_button.btn.btn-primary(href=`/${session.auth_store.id}/payment-methods`) Publish
+                  else
+                    <i id="payment_methods_icon" class="bi bi-check-circle-fill card-button-icon"></i>
+
+            .card
+              .card-body.text-sm-start
+                div.d-flex.align-items-center.justify-content-between.card_custom
+                  span 3. Add your billing details to renew your subscription
+                  if(session.auth_store && !session.auth_store.user_subscription_id)
+                    div.card-button.text-center.text-sm-end.mt-3.mt-sm-0 
+                      a#payment_methods_button.btn.btn-primary(href=`/${session.auth_store.id}/billing-details`) Renew
+                  else
+                    <i id="billing_details_icon" class="bi bi-check-circle-fill card-button-icon"></i>
+
+            .card
+              .card-body.text-sm-start
+                div.d-flex.align-items-center.justify-content-between.card_custom                    
+                  span 4. Add Checkout X on your store’s theme
+                  if(session.auth_store && (!session.auth_store.customize_checkout_preview || !session.auth_store.customize_checkout_publish))
+                    div.card-button.text-center.text-sm-end.mt-3.mt-sm-0 
+                      a#customize_checkout_button.btn.btn-primary(href=`/${session.auth_store.id}/customize-checkout`)
+                        if(session.auth_store.customize_checkout_publish && !session.auth_store.customize_checkout_preview)
+                          |Preview
+                        else if(session.auth_store && (!session.auth_store.customize_checkout_publish && session.auth_store.customize_checkout_preview))
+                          |Publish
+                        else
+                          |Preview & Publish
+                  else
+                    <i id="customize_checkout_icon" class="bi bi-check-circle-fill card-button-icon"></i>
+  
+						
+block scripts
+    //- script(type='text/javascript', src='/assets/js/custom/dashboard.js')

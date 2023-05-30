@@ -1,0 +1,82 @@
+extends ../../layouts/backend_layout
+
+block content 
+    main#main.main
+        .row.align-items-center.site-breadcrumb.mb-3
+            h1 Custom Domain
+            nav
+                ol.breadcrumb
+                    li.breadcrumb-item
+                        a(href=`/${store_id}/dashboard`) Dashboard
+                    li.breadcrumb-item.active Custom Domain
+
+        section.section.domain-listing
+            div
+                input(type='hidden' id="cdomain_id" value = custom_domain?custom_domain.id:'null')
+                div.row
+                    div.col-xl-5
+                        div
+                            div.add-shipping-rate-card.d-flex.flex-column.card_lef
+                                img.bg-connect.bg-cover.bg-center.bg-no-repeat(class='lg:visible lg:w-1/2' width ="300" src="https://d2dehg7zmi3qpg.cloudfront.net/packs/media/illustrations/store-connection-request-an-expert-d1173147.svg")
+                    div.col-xl-6
+                        h5 Custom Domain
+                        p Your checkout will be displayed on the custom domain you have provided
+
+                        div.card
+                            div.card-body.pt-3
+                                div
+                                    a#domain-name-display.row(href=`/${store_id}/add-custom-domain`)
+                                        div.col-sm-3 
+                                            | Custom Domain:
+                                        div.col-sm-5 
+                                            | #{custom_domain ? custom_domain.domain_host_name +'.'+auth_store.store_name+'.com':''}
+                                        div.col-sm-4 
+                                            button.btn-btn-primary.custom-domain-btn #{custom_domain && custom_domain.verified_status == true ?'Active' :'Awaiting Verification'} 
+                                    div.row.py-3 
+                                        div.col-sm-4 
+                                            | Default Domain:
+                                        div.col-sm-4 
+                                            | #{auth_store && auth_store.store_name +'.com'}
+                                        div.col-sm-4 
+                                            button.btn-btn-primary.custom-domain-btn  Active
+
+        section.section.add-domain
+            form#connect_domain
+                div.row
+                    div.col-xl-5
+                        div
+                            div.add-shipping-rate-card.d-flex.flex-column.card_lef
+                                img.bg-connect.bg-cover.bg-center.bg-no-repeat(class='lg:visible lg:w-1/2' width ="300" src="https://d2dehg7zmi3qpg.cloudfront.net/packs/media/illustrations/store-connection-request-an-expert-d1173147.svg")
+                    div.col-xl-6
+                        h5 Connect your domain to Checkout X
+
+                        span Improve your checkout branding, customer trust & ads tracking
+                        span performance by connecting your store domain to your checkout.
+                        div.card
+                            div.card-body.pt-3
+                                form#connect_domain(method="post")
+                                    input(type='hidden' name="points_to_domain" value ="checkout-master.com")
+                                    input(type='hidden' name="store_id" value = store_id)
+
+                                    label
+                                        | Select your custom domain
+                                    div.row.mb-3
+                                        div.input-group.col
+                                            input.form-control.required(
+                                                type="text"
+                                                name="domain_host_name"
+                                                id="domain_name"
+                                                value="development413"
+                                            )
+                                            span#domain-name.input-group-text #{auth_store?auth_store.store_name+'.com':'test.com'}
+                                        div.col-sm-4 
+                                            button.btn-btn-primary.custom-domain-btn(type="submit" )  CONNECT DOMAIN
+                                        .py-2
+                                        hr
+                                        span Current Domain:#{auth_store?auth_store.store_name+'.':''}checkout-master.com
+                                                                              
+                              
+            br      
+
+block scripts
+    script(type='text/javascript', src='/assets/js/custom/custom_domain.js')

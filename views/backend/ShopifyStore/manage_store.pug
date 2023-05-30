@@ -1,0 +1,43 @@
+extends ../../layouts/backend_layout
+
+block content
+    main#main.main
+        section
+            div.row
+                div.col-md-12
+                    h2 Stores
+
+                each store_detail, store_index in store_details
+                    div.col-md-6
+                        div.card.info-card
+                            div.card-body
+                                h2 #{store_detail.store_name}
+                                span #{store_detail.store_domain}
+                                div.input-group.col
+                                    input.form-control#store_script(
+                                        readonly
+                                        type='text',
+                                        name="store_script",
+                                        value=`<script src="${process.env.APP_URL}/assets/js/shopify/cart.js" data-master-x-id="${store_detail.id}"></script>`
+                                    )
+                                    span.input-group-text
+                                        i.bi.bi-clipboard.store_script_clipboard(aria-hidden='true')
+
+                                div
+                                    a.btn.btn-primary.mb-4.mb-xl-0(href=`${process.env.APP_URL}/${store_detail.id}/billing`) Renew
+                                    a.btn.btn-primary.mb-4.mb-xl-0(href=`${process.env.APP_URL}/${store_detail.id}/dashboard`) Go to Dashboard
+                
+                div.col-md-3
+                    div.card.info-card
+                        div.card-body
+                            h2 New Store
+                            span Connect another store to your account
+                            div
+                                a.btn.btn-primary.mb-4.mb-xl-0(href=`${process.env.APP_URL}/create-new-store/${Buffer.from(store_id).toString('base64')}`) Add a new store
+
+block scripts
+    script.
+        jQuery(document).on("click", ".store_script_clipboard", function(){
+            let jquery_this = jQuery(this);
+            console.log("jquery_this----------",jquery_this)
+        })

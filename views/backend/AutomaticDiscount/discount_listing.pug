@@ -1,0 +1,57 @@
+extends ../../layouts/backend_layout
+
+block content 
+    main#main.main
+        .row.align-items-center.site-breadcrumb.mb-3
+            h1 Shipping Rates
+            nav
+                ol.breadcrumb
+                    li.breadcrumb-item
+                        a(href=`/${store_id}/dashboard`) Dashboard
+                    li.breadcrumb-item.active Automatic discounts
+                    
+        section.section.shipping_rates
+            div.row
+                div.col-lg-12
+                    div.card
+                        div.card-header.text-center.textsm-start.py-4
+                            .d-sm-flex.justify-content-between
+                                    h5 Automatic discounts
+                                    .p-payment
+                                        a.btn.btn-primary(href=`/${store_id}/add-discount`)
+                                            | CREATE NEW DISCOUNT
+
+                        div.card-body
+                            table.table.datatable.bootstrap_datatable
+                                thead
+                                    tr 
+                                        th TITLE
+                                        th DISCOUNT TRIGGERS
+                                        th DATE
+                                        th USAGE
+                                        th STATUS
+                                tbody   
+                                    each discount in discounts
+                                        tr.table-row(id=`${discount.id}` store_id=`${store_id}`)
+                                            td #{discount?discount.discount_title:'n/a'}
+                                                br
+                                                span#f_shipping #{discount?discount.discount_type:'n/a'}
+                                            if(discount && discount.entire_order_bool ==true)
+                                                td#f_shipping #{discount?'Entire Order':'n/a'}
+                                            if(discount && discount.specific_order_bool ==true)
+                                                td#f_shipping #{discount?'Specific Order':'n/a'}
+                                            td #{discount?'from '+moment(discount.active_from_date).format('DD.MM.YYYY'):'n/a'} #{discount?'to '+moment(discount.active_to_date).format('DD.MM.YYYY'):'n/a'} 
+                                            if(discount && discount.discount_usage)
+                                                td #{discount?'0 times/ '+discount.discount_usage +'max':'n/a'} 
+                                            else 
+                                                td #{discount?'0 times':'n/a'} 
+                                            if(discount)
+                                                td 
+                                                    span.px-3.py-2.bg-black-600.text-xs.text-black.rounded-full.border.border-green-400 Active
+                                             
+                                              
+
+                                   
+                                               
+block scripts                               
+    script(type='text/javascript', src='/assets/js/custom/automatic_discount.js')

@@ -1,0 +1,1347 @@
+extends ../../layouts/backend_layout
+
+block content 
+    main#main.main
+        .pagetitle
+            h1 Taxes
+        section.section.add-taxes
+            form.row.g-3
+                div.row
+                    div.col-xl-4
+                        div
+                            div.add-taxes-card.pt-4.d-flex.flex-column
+                                h2 Add a new Tax rate               
+                                br
+                                p
+                                    | Manage how your store charges taxes. On all products with the option: Charge tax on this product, will be applied tax rates
+
+                    div.col-xl-8
+                        div.card
+                            div.card-body.pt-3
+                                div.tab-content.pt-2
+                                    div.form-row
+                                        div.form-group.col
+                                            label.form-label Tax Rate    
+                                            input#tax_rate_name.form-control(type='text', name='tax_rate[name]')
+                                    div.form-row
+                                         div.form-group.col
+                                            label.form-label Tax Name      
+                                            div.input-group
+                                                input#tax_rate_percentage.form-control.filled(min='0', max='100', step='0.01', type='number', value='0.0', name='tax_rate[percentage]')
+                                                div.input-group-append
+                                                    span.input-group-text
+                                                        | %
+                                            
+                div.row
+                    div.col-xl-4
+                        div
+                            div.add-taxes-card.pt-4.d-flex.flex-column
+                                h2 Applicable countries    
+                                br
+                                p  Select the countries for which this Tax Rate will be applicable   
+
+                    div.col-xl-8
+                        div.card
+                            div.card-body.pt-3
+                                div.tab-content.pt-2
+                                    div.card-items-wrapper
+                                        div.card-item
+                                            div.d-flex.justify-content-start.w-100
+                                                div.mr-3 All
+                                        div.card-items-footer.row
+                                            div.col
+                                                | Actions
+                                            div.col.d-flex.justify-content-end
+                                                button#edit_counteries.btn.btn-secondary EDIT COUNTRIES
+                div#contriesPicker.modal.fade(aria-hidden='true', role='dialog', tabindex='-1')
+                    div.modal-dialog.modal-dialog-scrollable.modal-lg
+                        div.modal-content
+                            div.modal-header.row
+                                div.col-6
+                                    h5#exampleModalLabel.modal-title Select Countries
+                                div.col-6.d-flex.justify-content-end
+                                    div.btn.btn-icon.btn-sm.btn-active-icon-primary.model_close(data-dismiss="modal", aria-label="Close", model_id="add_vendors_model")
+                                        span.svg-icon.svg-icon-1
+                                            svg(width='24', height='24', viewBox='0 0 24 24', fill='none', xmlns='http://www.w3.org/2000/svg')
+                                                rect(opacity='0.5', x='6', y='17.3137', width='16', height='2', rx='1', transform='rotate(-45 6 17.3137)', fill='currentColor')
+                                                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                                                rect(x='7.41422', y='6', width='16', height='2', rx='1', transform='rotate(45 7.41422 6)', fill='currentColor')
+                            div.modal-body
+                                div.modal-section
+                                    div.modal-section-header
+                                        h5.space-top-2.space-2
+                                            | Africa
+                                        div.custom-control.custom-checkbox
+                                            input#region-checkbox-Africa.custom-control-input(data-function='region-checkbox', data-region='Africa', type='checkbox')
+                                            label.custom-control-label(for='region-checkbox-Africa') Select all
+
+                                    div.modal-section-body
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926080.custom-control-input(data-region='Africa', type='checkbox', value='DZ', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926080')
+                                                | Algeria
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926100.custom-control-input(data-region='Africa', type='checkbox', value='AO', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926100')
+                                                | Angola
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926120.custom-control-input(data-region='Africa', type='checkbox', value='BJ', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926120')
+                                                | Benin
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926140.custom-control-input(data-region='Africa', type='checkbox', value='BW', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926140')
+                                                | Botswana
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926160.custom-control-input(data-region='Africa', type='checkbox', value='IO', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926160')
+                                                | British Indian Ocean Territory
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926180.custom-control-input(data-region='Africa', type='checkbox', value='BF', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926180')
+                                                | Burkina Faso
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926200.custom-control-input(data-region='Africa', type='checkbox', value='BI', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926200')
+                                            | Burundi
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926220.custom-control-input(data-region='Africa', type='checkbox', value='CV', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926220')
+                                                | Cabo Verde
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926240.custom-control-input(data-region='Africa', type='checkbox', value='CM', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926240')
+                                                | Cameroon
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926260.custom-control-input(data-region='Africa', type='checkbox', value='CF', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926260')
+                                                | Central African Republic
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926280.custom-control-input(data-region='Africa', type='checkbox', value='TD', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926280')
+                                                | Chad
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926300.custom-control-input(data-region='Africa', type='checkbox', value='KM', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926300')
+                                                | Comoros
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926320.custom-control-input(data-region='Africa', type='checkbox', value='CG', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926320')
+                                                | Congo
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926340.custom-control-input(data-region='Africa', type='checkbox', value='CD', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926340')
+                                                | Congo (Democratic Republic of the)
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926360.custom-control-input(data-region='Africa', type='checkbox', value='CI', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926360')
+                                                | C&ocirc;te d&apos;Ivoire
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926380.custom-control-input(data-region='Africa', type='checkbox', value='DJ', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926380')
+                                                | Djibouti
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926400.custom-control-input(data-region='Africa', type='checkbox', value='EG', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926400')
+                                                | Egypt
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926420.custom-control-input(data-region='Africa', type='checkbox', value='GQ', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926420')
+                                                | Equatorial Guinea
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926440.custom-control-input(data-region='Africa', type='checkbox', value='ER', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926440')
+                                                | Eritrea
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926460.custom-control-input(data-region='Africa', type='checkbox', value='ET', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926460')
+                                                | Ethiopia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926480.custom-control-input(data-region='Africa', type='checkbox', value='GA', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926480')
+                                                | Gabon
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926500.custom-control-input(data-region='Africa', type='checkbox', value='GM', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926500')
+                                                | Gambia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926520.custom-control-input(data-region='Africa', type='checkbox', value='GH', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926520')
+                                                | Ghana
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926540.custom-control-input(data-region='Africa', type='checkbox', value='GN', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926540')
+                                                | Guinea
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926560.custom-control-input(data-region='Africa', type='checkbox', value='GW', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926560')
+                                                | Guinea-Bissau
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926580.custom-control-input(data-region='Africa', type='checkbox', value='KE', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926580')
+                                                | Kenya
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926600.custom-control-input(data-region='Africa', type='checkbox', value='LS', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926600')
+                                                | Lesotho
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926620.custom-control-input(data-region='Africa', type='checkbox', value='LR', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926620')
+                                                | Liberia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926640.custom-control-input(data-region='Africa', type='checkbox', value='LY', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926640')
+                                                | Libya
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926660.custom-control-input(data-region='Africa', type='checkbox', value='MG', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926660')
+                                                | Madagascar
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926680.custom-control-input(data-region='Africa', type='checkbox', value='MW', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926680')
+                                                | Malawi
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926700.custom-control-input(data-region='Africa', type='checkbox', value='ML', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926700')
+                                                | Mali
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926720.custom-control-input(data-region='Africa', type='checkbox', value='MR', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926720')
+                                                | Mauritania
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926740.custom-control-input(data-region='Africa', type='checkbox', value='MU', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926740')
+                                            | Mauritius
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926760.custom-control-input(data-region='Africa', type='checkbox', value='YT', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926760')
+                                                | Mayotte
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926780.custom-control-input(data-region='Africa', type='checkbox', value='MA', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926780')
+                                                | Morocco
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926800.custom-control-input(data-region='Africa', type='checkbox', value='MZ', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926800')
+                                                | Mozambique
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926820.custom-control-input(data-region='Africa', type='checkbox', value='NA', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926820')
+                                                | Namibia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926840.custom-control-input(data-region='Africa', type='checkbox', value='NE', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926840')
+                                                | Niger
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926860.custom-control-input(data-region='Africa', type='checkbox', value='NG', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926860')
+                                                | Nigeria
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926880.custom-control-input(data-region='Africa', type='checkbox', value='RW', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926880')
+                                                | Rwanda
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926900.custom-control-input(data-region='Africa', type='checkbox', value='RE', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926900')
+                                                | R&eacute;union
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926920.custom-control-input(data-region='Africa', type='checkbox', value='SH', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926920')
+                                                | Saint Helena, Ascension and Tristan d...
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926940.custom-control-input(data-region='Africa', type='checkbox', value='ST', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926940')
+                                                | Sao Tome and Principe
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926960.custom-control-input(data-region='Africa', type='checkbox', value='SN', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926960')
+                                                | Senegal
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-926980.custom-control-input(data-region='Africa', type='checkbox', value='SC', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-926980')
+                                            | Seychelles
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927000.custom-control-input(data-region='Africa', type='checkbox', value='SL', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927000')
+                                                | Sierra Leone
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927020.custom-control-input(data-region='Africa', type='checkbox', value='SO', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927020')
+                                            | Somalia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927040.custom-control-input(data-region='Africa', type='checkbox', value='ZA', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927040')
+                                            |    South Africa
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927060.custom-control-input(data-region='Africa', type='checkbox', value='SS', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927060')
+                                                | South Sudan
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927080.custom-control-input(data-region='Africa', type='checkbox', value='SD', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927080')
+                                                | Sudan
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927100.custom-control-input(data-region='Africa', type='checkbox', value='TZ', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927100')
+                                                | Tanzania, United Republic of
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927120.custom-control-input(data-region='Africa', type='checkbox', value='TG', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927120')
+                                                | Togo
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927140.custom-control-input(data-region='Africa', type='checkbox', value='TN', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927140')
+                                                | Tunisia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927160.custom-control-input(data-region='Africa', type='checkbox', value='UG', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927160')
+                                                | Uganda
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927180.custom-control-input(data-region='Africa', type='checkbox', value='EH', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927180')
+                                                | Western Sahara
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927200.custom-control-input(data-region='Africa', type='checkbox', value='ZM', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927200')
+                                                | Zambia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927220.custom-control-input(data-region='Africa', type='checkbox', value='ZW', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927220')
+                                                | Zimbabwe
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927240.custom-control-input(data-region='Africa', type='checkbox', value='SZ', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927240')
+                                                | eSwatini
+                                div.modal-section
+                                    div.modal-section-header
+                                        h5.space-top-2.space-2
+                                            | Americas
+                                        div.custom-control.custom-checkbox
+                                            input#region-checkbox-Americas.custom-control-input(data-function='region-checkbox', data-region='Americas', type='checkbox')
+                                            label.custom-control-label(for='region-checkbox-Americas')
+                                                | Select all
+                                    div.modal-section-body
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927260.custom-control-input(data-region='Americas', type='checkbox', value='AI', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927260')
+                                                | Anguilla
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927280.custom-control-input(data-region='Americas', type='checkbox', value='AG', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927280')
+                                                | Antigua and Barbuda
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927300.custom-control-input(data-region='Americas', type='checkbox', value='AR', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927300')
+                                                | Argentina
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927320.custom-control-input(data-region='Americas', type='checkbox', value='AW', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927320')
+                                                | Aruba
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927340.custom-control-input(data-region='Americas', type='checkbox', value='BS', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927340')
+                                                | Bahamas
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927360.custom-control-input(data-region='Americas', type='checkbox', value='BB', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927360')
+                                                | Barbados
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927380.custom-control-input(data-region='Americas', type='checkbox', value='BZ', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927380')
+                                                | Belize
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927400.custom-control-input(data-region='Americas', type='checkbox', value='BM', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927400')
+                                                | Bermuda
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927420.custom-control-input(data-region='Americas', type='checkbox', value='BO', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927420')
+                                                | Bolivia (Plurinational State of)
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927440.custom-control-input(data-region='Americas', type='checkbox', value='BQ', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927440')
+                                                | Bonaire, Sint Eustatius and Saba
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927460.custom-control-input(data-region='Americas', type='checkbox', value='BR', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927460')
+                                                | Brazil
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927480.custom-control-input(data-region='Americas', type='checkbox', value='CA', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927480')
+                                                | Canada
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927500.custom-control-input(data-region='Americas', type='checkbox', value='KY', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927500')
+                                                | Cayman Islands
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927520.custom-control-input(data-region='Americas', type='checkbox', value='CL', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927520')
+                                                | Chile
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927540.custom-control-input(data-region='Americas', type='checkbox', value='CO', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927540')
+                                                | Colombia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927560.custom-control-input(data-region='Americas', type='checkbox', value='CR', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927560')
+                                                | Costa Rica
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927580.custom-control-input(data-region='Americas', type='checkbox', value='CU', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927580')
+                                                | Cuba
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927600.custom-control-input(data-region='Americas', type='checkbox', value='CW', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927600')
+                                                | Cura&ccedil;ao
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927620.custom-control-input(data-region='Americas', type='checkbox', value='DM', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927620')
+                                                | Dominica
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927640.custom-control-input(data-region='Americas', type='checkbox', value='DO', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927640')
+                                                | Dominican Republic
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927660.custom-control-input(data-region='Americas', type='checkbox', value='EC', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927660')
+                                                | Ecuador
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927680.custom-control-input(data-region='Americas', type='checkbox', value='SV', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927680')
+                                                | El Salvador
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927700.custom-control-input(data-region='Americas', type='checkbox', value='FK', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927700')
+                                                | Falkland Islands (Malvinas)
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927720.custom-control-input(data-region='Americas', type='checkbox', value='GF', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927720')
+                                                | French Guiana
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927740.custom-control-input(data-region='Americas', type='checkbox', value='GL', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927740')
+                                                | Greenland
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927760.custom-control-input(data-region='Americas', type='checkbox', value='GD', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927760')
+                                                | Grenada
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927780.custom-control-input(data-region='Americas', type='checkbox', value='GP', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927780')
+                                                | Guadeloupe
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927800.custom-control-input(data-region='Americas', type='checkbox', value='GT', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927800')
+                                                | Guatemala
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927820.custom-control-input(data-region='Americas', type='checkbox', value='GY', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927820')
+                                                | Guyana
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927840.custom-control-input(data-region='Americas', type='checkbox', value='HT', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927840')
+                                                | Haiti
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927860.custom-control-input(data-region='Americas', type='checkbox', value='HN', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927860')
+                                                | Honduras
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927880.custom-control-input(data-region='Americas', type='checkbox', value='JM', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927880')
+                                                | Jamaica
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927900.custom-control-input(data-region='Americas', type='checkbox', value='MQ', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927900')
+                                                | Martinique
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927920.custom-control-input(data-region='Americas', type='checkbox', value='MX', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927920')
+                                                | Mexico
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927940.custom-control-input(data-region='Americas', type='checkbox', value='MS', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927940')
+                                                | Montserrat
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927960.custom-control-input(data-region='Americas', type='checkbox', value='NI', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927960')
+                                                | Nicaragua
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-927980.custom-control-input(data-region='Americas', type='checkbox', value='PA', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-927980')
+                                                | Panama
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928000.custom-control-input(data-region='Americas', type='checkbox', value='PY', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928000')
+                                                | Paraguay
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928020.custom-control-input(data-region='Americas', type='checkbox', value='PE', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928020')
+                                                | Peru
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928040.custom-control-input(data-region='Americas', type='checkbox', value='PR', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928040')
+                                                | Puerto Rico
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928060.custom-control-input(data-region='Americas', type='checkbox', value='BL', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928060')
+                                                | Saint Barth&eacute;lemy
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928080.custom-control-input(data-region='Americas', type='checkbox', value='KN', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928080')
+                                                | Saint Kitts and Nevis
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928100.custom-control-input(data-region='Americas', type='checkbox', value='LC', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928100')
+                                                | Saint Lucia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928120.custom-control-input(data-region='Americas', type='checkbox', value='MF', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928120')
+                                                | Saint Martin (French part)
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928140.custom-control-input(data-region='Americas', type='checkbox', value='PM', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928140')
+                                                | Saint Pierre and Miquelon
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928160.custom-control-input(data-region='Americas', type='checkbox', value='VC', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928160')
+                                                | Saint Vincent and the Grenadines
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928180.custom-control-input(data-region='Americas', type='checkbox', value='SX', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928180')
+                                                | Sint Maarten (Dutch part)
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928200.custom-control-input(data-region='Americas', type='checkbox', value='GS', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928200')
+                                                | South Georgia and the South Sandwich ...
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928220.custom-control-input(data-region='Americas', type='checkbox', value='SR', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928220')
+                                                | Suriname
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928240.custom-control-input(data-region='Americas', type='checkbox', value='TT', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928240')
+                                                | Trinidad and Tobago
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928260.custom-control-input(data-region='Americas', type='checkbox', value='TC', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928260')
+                                                | Turks and Caicos Islands
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928280.custom-control-input(data-region='Americas', type='checkbox', value='UM', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928280')
+                                                | United States Minor Outlying Islands
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928300.custom-control-input(data-region='Americas', type='checkbox', value='US', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928300')
+                                                | United States of America
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928320.custom-control-input(data-region='Americas', type='checkbox', value='UY', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928320')
+                                                | Uruguay
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928340.custom-control-input(data-region='Americas', type='checkbox', value='VE', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928340')
+                                                | Venezuela (Bolivarian Republic of)
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928360.custom-control-input(data-region='Americas', type='checkbox', value='VG', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928360')
+                                                | Virgin Islands (British)
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928380.custom-control-input(data-region='Americas', type='checkbox', value='VI', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928380')
+                                                | Virgin Islands (U.S.)
+                                div.modal-section
+                                    .modal-section-header
+                                        h5.space-top-2.space-2
+                                            | Asia
+                                        .custom-control.custom-checkbox
+                                            input#region-checkbox-Asia.custom-control-input(data-function='region-checkbox', data-region='Asia', type='checkbox')
+                                            label.custom-control-label(for='region-checkbox-Asia')
+                                                | Select all
+                                    .modal-section-body
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928400.custom-control-input(data-region='Asia', type='checkbox', value='AF', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928400')
+                                                | Afghanistan
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928420.custom-control-input(data-region='Asia', type='checkbox', value='AM', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928420')
+                                                | Armenia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928440.custom-control-input(data-region='Asia', type='checkbox', value='AZ', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928440')
+                                                | Azerbaijan
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928460.custom-control-input(data-region='Asia', type='checkbox', value='BH', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928460')
+                                                | Bahrain
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928480.custom-control-input(data-region='Asia', type='checkbox', value='BD', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928480')
+                                                | Bangladesh
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928500.custom-control-input(data-region='Asia', type='checkbox', value='BT', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928500')
+                                                | Bhutan
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928520.custom-control-input(data-region='Asia', type='checkbox', value='BN', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928520')
+                                                | Brunei Darussalam
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928540.custom-control-input(data-region='Asia', type='checkbox', value='KH', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928540')
+                                                | Cambodia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928560.custom-control-input(data-region='Asia', type='checkbox', value='CN', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928560')
+                                                | China
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928580.custom-control-input(data-region='Asia', type='checkbox', value='CY', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928580')
+                                                | Cyprus
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928600.custom-control-input(data-region='Asia', type='checkbox', value='GE', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928600')
+                                                | Georgia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928620.custom-control-input(data-region='Asia', type='checkbox', value='HK', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928620')
+                                                | Hong Kong
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928640.custom-control-input(data-region='Asia', type='checkbox', value='IN', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928640')
+                                                | India
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928660.custom-control-input(data-region='Asia', type='checkbox', value='ID', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928660')
+                                                | Indonesia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928680.custom-control-input(data-region='Asia', type='checkbox', value='IR', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928680')
+                                                | Iran (Islamic Republic of)
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928700.custom-control-input(data-region='Asia', type='checkbox', value='IQ', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928700')
+                                                | Iraq
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928720.custom-control-input(data-region='Asia', type='checkbox', value='IL', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928720')
+                                                | Israel
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928740.custom-control-input(data-region='Asia', type='checkbox', value='JP', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928740')
+                                                | Japan
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928760.custom-control-input(data-region='Asia', type='checkbox', value='JO', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928760')
+                                                | Jordan
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928780.custom-control-input(data-region='Asia', type='checkbox', value='KZ', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928780')
+                                                | Kazakhstan
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928800.custom-control-input(data-region='Asia', type='checkbox', value='KP', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928800')
+                                                | Korea (Democratic People&apos;s Republic of)
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928820.custom-control-input(data-region='Asia', type='checkbox', value='KR', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928820')
+                                                | Korea (Republic of)
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928840.custom-control-input(data-region='Asia', type='checkbox', value='KW', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928840')
+                                                | Kuwait
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928860.custom-control-input(data-region='Asia', type='checkbox', value='KG', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928860')
+                                                | Kyrgyzstan
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928880.custom-control-input(data-region='Asia', type='checkbox', value='LA', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928880')
+                                                | Lao People&apos;s Democratic Republic
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928900.custom-control-input(data-region='Asia', type='checkbox', value='LB', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928900')
+                                                | Lebanon
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928920.custom-control-input(data-region='Asia', type='checkbox', value='MO', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928920')
+                                                | Macao
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928940.custom-control-input(data-region='Asia', type='checkbox', value='MY', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928940')
+                                                | Malaysia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928960.custom-control-input(data-region='Asia', type='checkbox', value='MV', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928960')
+                                                | Maldives
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-928980.custom-control-input(data-region='Asia', type='checkbox', value='MN', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-928980')
+                                                | Mongolia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929000.custom-control-input(data-region='Asia', type='checkbox', value='MM', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929000')
+                                                | Myanmar
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929020.custom-control-input(data-region='Asia', type='checkbox', value='NP', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929020')
+                                                | Nepal
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929040.custom-control-input(data-region='Asia', type='checkbox', value='OM', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929040')
+                                                | Oman
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929060.custom-control-input(data-region='Asia', type='checkbox', value='PK', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929060')
+                                                | Pakistan
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929080.custom-control-input(data-region='Asia', type='checkbox', value='PS', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929080')
+                                                | Palestine, State of
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929100.custom-control-input(data-region='Asia', type='checkbox', value='PH', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929100')
+                                                | Philippines
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929120.custom-control-input(data-region='Asia', type='checkbox', value='QA', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929120')
+                                                | Qatar
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929140.custom-control-input(data-region='Asia', type='checkbox', value='SA', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929140')
+                                                | Saudi Arabia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929160.custom-control-input(data-region='Asia', type='checkbox', value='SG', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929160')
+                                                | Singapore
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929180.custom-control-input(data-region='Asia', type='checkbox', value='LK', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929180')
+                                                | Sri Lanka
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929200.custom-control-input(data-region='Asia', type='checkbox', value='SY', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929200')
+                                                | Syrian Arab Republic
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929220.custom-control-input(data-region='Asia', type='checkbox', value='TW', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929220')
+                                                | Taiwan, Province of China
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929240.custom-control-input(data-region='Asia', type='checkbox', value='TJ', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929240')
+                                                | Tajikistan
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929260.custom-control-input(data-region='Asia', type='checkbox', value='TH', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929260')
+                                                | Thailand
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929280.custom-control-input(data-region='Asia', type='checkbox', value='TL', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929280')
+                                                | Timor-Leste
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929300.custom-control-input(data-region='Asia', type='checkbox', value='TR', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929300')
+                                                | Turkey
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929320.custom-control-input(data-region='Asia', type='checkbox', value='TM', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929320')
+                                                | Turkmenistan
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929340.custom-control-input(data-region='Asia', type='checkbox', value='AE', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929340')
+                                                | United Arab Emirates
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929360.custom-control-input(data-region='Asia', type='checkbox', value='UZ', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929360')
+                                                | Uzbekistan
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929380.custom-control-input(data-region='Asia', type='checkbox', value='VN', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929380')
+                                                | Viet Nam
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929400.custom-control-input(data-region='Asia', type='checkbox', value='YE', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929400')
+                                                | Yemen
+                                div.modal-section
+                                    .modal-section-header
+                                        h5.space-top-2.space-2
+                                            | Europe
+                                        .custom-control.custom-checkbox
+                                            input#region-checkbox-Europe.custom-control-input(data-function='region-checkbox', data-region='Europe', type='checkbox')
+                                            label.custom-control-label(for='region-checkbox-Europe')
+                                                | Select all
+                                    .modal-section-body
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929420.custom-control-input(data-region='Europe', type='checkbox', value='AL', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929420')
+                                                | Albania
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929440.custom-control-input(data-region='Europe', type='checkbox', value='AD', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929440')
+                                                | Andorra
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929460.custom-control-input(data-region='Europe', type='checkbox', value='AT', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929460')
+                                                | Austria
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929480.custom-control-input(data-region='Europe', type='checkbox', value='BY', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929480')
+                                                | Belarus
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929500.custom-control-input(data-region='Europe', type='checkbox', value='BE', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929500')
+                                                | Belgium
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929520.custom-control-input(data-region='Europe', type='checkbox', value='BA', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929520')
+                                                | Bosnia and Herzegovina
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929540.custom-control-input(data-region='Europe', type='checkbox', value='BG', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929540')
+                                                | Bulgaria
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929560.custom-control-input(data-region='Europe', type='checkbox', value='HR', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929560')
+                                                | Croatia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929580.custom-control-input(data-region='Europe', type='checkbox', value='CZ', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929580')
+                                                | Czech Republic
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929600.custom-control-input(data-region='Europe', type='checkbox', value='DK', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929600')
+                                                | Denmark
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929620.custom-control-input(data-region='Europe', type='checkbox', value='EE', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929620')
+                                                | Estonia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929640.custom-control-input(data-region='Europe', type='checkbox', value='FO', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929640')
+                                                | Faroe Islands
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929660.custom-control-input(data-region='Europe', type='checkbox', value='FI', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929660')
+                                                | Finland
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929680.custom-control-input(data-region='Europe', type='checkbox', value='FR', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929680')
+                                                | France
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929700.custom-control-input(data-region='Europe', type='checkbox', value='DE', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929700')
+                                                | Germany
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929720.custom-control-input(data-region='Europe', type='checkbox', value='GI', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929720')
+                                                | Gibraltar
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929740.custom-control-input(data-region='Europe', type='checkbox', value='GR', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929740')
+                                                | Greece
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929760.custom-control-input(data-region='Europe', type='checkbox', value='GG', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929760')
+                                                | Guernsey
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929780.custom-control-input(data-region='Europe', type='checkbox', value='VA', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929780')
+                                                | Holy See
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929800.custom-control-input(data-region='Europe', type='checkbox', value='HU', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929800')
+                                                | Hungary
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929820.custom-control-input(data-region='Europe', type='checkbox', value='IS', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929820')
+                                                | Iceland
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929840.custom-control-input(data-region='Europe', type='checkbox', value='IE', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929840')
+                                                | Ireland
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929860.custom-control-input(data-region='Europe', type='checkbox', value='IM', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929860')
+                                                | Isle of Man
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929880.custom-control-input(data-region='Europe', type='checkbox', value='IT', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929880')
+                                                | Italy
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929900.custom-control-input(data-region='Europe', type='checkbox', value='JE', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929900')
+                                                | Jersey
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929920.custom-control-input(data-region='Europe', type='checkbox', value='LV', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929920')
+                                                | Latvia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929940.custom-control-input(data-region='Europe', type='checkbox', value='LI', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929940')
+                                                | Liechtenstein
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929960.custom-control-input(data-region='Europe', type='checkbox', value='LT', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929960')
+                                                | Lithuania
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-929980.custom-control-input(data-region='Europe', type='checkbox', value='LU', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-929980')
+                                                | Luxembourg
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930000.custom-control-input(data-region='Europe', type='checkbox', value='MT', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930000')
+                                                | Malta
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930020.custom-control-input(data-region='Europe', type='checkbox', value='MD', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930020')
+                                                | Moldova (Republic of)
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930040.custom-control-input(data-region='Europe', type='checkbox', value='MC', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930040')
+                                                | Monaco
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930060.custom-control-input(data-region='Europe', type='checkbox', value='ME', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930060')
+                                                | Montenegro
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930080.custom-control-input(data-region='Europe', type='checkbox', value='NL', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930080')
+                                                | Netherlands
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930100.custom-control-input(data-region='Europe', type='checkbox', value='MK', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930100')
+                                                | North Macedonia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930120.custom-control-input(data-region='Europe', type='checkbox', value='NO', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930120')
+                                                | Norway
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930140.custom-control-input(data-region='Europe', type='checkbox', value='PL', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930140')
+                                                | Poland
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930160.custom-control-input(data-region='Europe', type='checkbox', value='PT', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930160')
+                                                | Portugal
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930180.custom-control-input(data-region='Europe', type='checkbox', value='RO', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930180')
+                                                | Romania
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930200.custom-control-input(data-region='Europe', type='checkbox', value='RU', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930200')
+                                                | Russian Federation
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930220.custom-control-input(data-region='Europe', type='checkbox', value='SM', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930220')
+                                                | San Marino
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930240.custom-control-input(data-region='Europe', type='checkbox', value='RS', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930240')
+                                                | Serbia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930260.custom-control-input(data-region='Europe', type='checkbox', value='SK', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930260')
+                                                | Slovakia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930280.custom-control-input(data-region='Europe', type='checkbox', value='SI', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930280')
+                                                | Slovenia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930300.custom-control-input(data-region='Europe', type='checkbox', value='ES', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930300')
+                                                | Spain
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930320.custom-control-input(data-region='Europe', type='checkbox', value='SJ', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930320')
+                                                | Svalbard and Jan Mayen
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930340.custom-control-input(data-region='Europe', type='checkbox', value='SE', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930340')
+                                                | Sweden
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930360.custom-control-input(data-region='Europe', type='checkbox', value='CH', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930360')
+                                                | Switzerland
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930380.custom-control-input(data-region='Europe', type='checkbox', value='UA', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930380')
+                                                | Ukraine
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930400.custom-control-input(data-region='Europe', type='checkbox', value='GB', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930400')
+                                                | United Kingdom of Great Britain and N...
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930420.custom-control-input(data-region='Europe', type='checkbox', value='AX', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930420')
+                                                | &angst;land Islands
+                                div.modal-section
+                                    .modal-section-header
+                                        h5.space-top-2.space-2
+                                            | Oceania
+                                        .custom-control.custom-checkbox
+                                            input#region-checkbox-Oceania.custom-control-input(data-function='region-checkbox', data-region='Oceania', type='checkbox')
+                                            label.custom-control-label(for='region-checkbox-Oceania')
+                                                | Select all
+                                    .modal-section-body
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930440.custom-control-input(data-region='Oceania', type='checkbox', value='AS', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930440')
+                                                | American Samoa
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930460.custom-control-input(data-region='Oceania', type='checkbox', value='AU', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930460')
+                                                | Australia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930480.custom-control-input(data-region='Oceania', type='checkbox', value='CX', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930480')
+                                                | Christmas Island
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930500.custom-control-input(data-region='Oceania', type='checkbox', value='CC', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930500')
+                                                | Cocos (Keeling) Islands
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930520.custom-control-input(data-region='Oceania', type='checkbox', value='CK', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930520')
+                                                | Cook Islands
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930540.custom-control-input(data-region='Oceania', type='checkbox', value='FJ', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930540')
+                                                | Fiji
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930560.custom-control-input(data-region='Oceania', type='checkbox', value='PF', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930560')
+                                                | French Polynesia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930580.custom-control-input(data-region='Oceania', type='checkbox', value='GU', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930580')
+                                                | Guam
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930600.custom-control-input(data-region='Oceania', type='checkbox', value='KI', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930600')
+                                                | Kiribati
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930620.custom-control-input(data-region='Oceania', type='checkbox', value='MH', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930620')
+                                                | Marshall Islands
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930640.custom-control-input(data-region='Oceania', type='checkbox', value='FM', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930640')
+                                                | Micronesia (Federated States of)
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930660.custom-control-input(data-region='Oceania', type='checkbox', value='NR', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930660')
+                                                | Nauru
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930680.custom-control-input(data-region='Oceania', type='checkbox', value='NC', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930680')
+                                                | New Caledonia
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930700.custom-control-input(data-region='Oceania', type='checkbox', value='NZ', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930700')
+                                                | New Zealand
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930720.custom-control-input(data-region='Oceania', type='checkbox', value='NU', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930720')
+                                                | Niue
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930740.custom-control-input(data-region='Oceania', type='checkbox', value='NF', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930740')
+                                                | Norfolk Island
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930760.custom-control-input(data-region='Oceania', type='checkbox', value='MP', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930760')
+                                                | Northern Mariana Islands
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930780.custom-control-input(data-region='Oceania', type='checkbox', value='PW', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930780')
+                                                | Palau
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930800.custom-control-input(data-region='Oceania', type='checkbox', value='PG', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930800')
+                                                | Papua New Guinea
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930820.custom-control-input(data-region='Oceania', type='checkbox', value='PN', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930820')
+                                                | Pitcairn
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930840.custom-control-input(data-region='Oceania', type='checkbox', value='WS', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930840')
+                                                | Samoa
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930860.custom-control-input(data-region='Oceania', type='checkbox', value='SB', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930860')
+                                                | Solomon Islands
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930880.custom-control-input(data-region='Oceania', type='checkbox', value='TK', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930880')
+                                                | Tokelau
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930900.custom-control-input(data-region='Oceania', type='checkbox', value='TO', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930900')
+                                                | Tonga
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930920.custom-control-input(data-region='Oceania', type='checkbox', value='TV', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930920')
+                                                | Tuvalu
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930940.custom-control-input(data-region='Oceania', type='checkbox', value='VU', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930940')
+                                                | Vanuatu
+                                        .custom-control.custom-checkbox.country
+                                            input(name='shipping_rate[country_codes][]', type='hidden', value='0')
+                                            input#country-checkbox-930960.custom-control-input(data-region='Oceania', type='checkbox', value='WF', checked='checked', name='shipping_rate[country_codes][]')
+                                            label.custom-control-label(for='country-checkbox-930960')
+                                                | Wallis and Futuna
+                            div.modal-footer
+                                button.btn.btn-primary(type='submit') Update
+ 
+                div.row 
+                    div.col-12.d-flex.justify-content-end
+                        button.btn.btn-primary.me-4(type="submit") Save Shipping Rate
+block scripts
+    script(type='text/javascript', src='/assets/js/custom/common.js')

@@ -1,0 +1,146 @@
+extends ../../layouts/backend_layout
+
+block content 
+    main#main.main
+        .row.align-items-center.site-breadcrumb.mb-3
+            h1 Add Payment Method
+            nav
+                ol.breadcrumb
+                    li.breadcrumb-item
+                        a(href=`/${store_id}/dashboard`) Dashboard
+                    li.breadcrumb-item
+                        a(href=`/${store_id}/payment-methods`) Payment Listing
+                    li.breadcrumb-item.active Live Transactions
+
+        // End Page Title
+        section.section.profile
+            .row.g-3
+                .row
+                    .col-xl-4
+                        div
+                            .profile-card.pt-4.d-flex.flex-column
+                                h2
+                                    | New payment method
+                                br
+                                h6
+                                    | This information can be found in the dashboard of your payment provider
+                    .col-xl-8
+                        br
+                        .card
+                            .card-body.pt-3
+                                // Bordered Tabs
+                                .tab-content.pt-2
+                                    form#edit_payment_method.row.g-3(method="post")
+                                        input.form-control( type= 'hidden', id="store_id" name= "store_id", value= store_id)
+
+                                        .col-12
+                                            label.form-label(for="method_name")
+                                                | Payment provider
+                                            input.form-control(type="text", id="method_name" readOnly name ="method_name" value =payment_method?payment_method.method_name:'')
+                                        .col-12
+                                            label.form-label(for="publish_key") Publish Key
+                                            input.form-control(type="text", id="publishable_key" name ="publishable_key" value =payment_method?payment_method.publishable_key:'')
+                                        .col-12
+                                            label.form-label(for="secret") Secret
+                                            input#secret.form-control(type="password" name ="secret" value = payment_method?payment_method.secret:'')
+                                   
+                                        // Vertical Form
+                                        .row.g-3
+                                            .row
+                                                .col-xl-12
+                                                    div
+                                                        .profile-card.pt-4.d-flex.flex-column
+                                                            h2
+                                                                | Additional instructions
+                                                            br
+                                                            h6
+                                                                | Follow these steps to complete your checkout integration
+                                                
+                                                if(payment_method && payment_method.method_name ==="Stripe")
+                                                    section.col-xl-12.col-xl-12
+                                                        br
+                                                    
+                                                        // Bordered Tabs
+                                                        .tab-content.pt-2
+                                                            h6
+                                                                |  To find your API Keys open your Stripe Console 
+                                                            ul
+                                                                li
+                                                                    
+                                                                | 1. Go to your Stripe Account > Developers > API Keys
+                                                                li
+                                                                    
+                                                                | 2. Copy your Publishable Key and Secret Key from the &quot;Standard Keys&quot; section
+                                                                li
+                                                                            
+                                                                | 3. Paste them into Checkout X and Save
+                                                                br
+                                                                a(href="https://help.checkout-x.com/en/articles/4046994-enable-credit-card-payments-with-stripe") If have any trouble setting it up, make sure to follow the complete Stripe instructions
+                                                
+                                                if(payment_method && payment_method.method_name ==="PayPal")
+                                                    section.col-xl-12.col-xl-12
+                                                        br
+                                                    
+                                                        // Bordered Tabs
+                                                        .tab-content.pt-2
+                                                            h6
+                                                                | To find your API Keys open your PayPal Console 
+                                                            ul
+                                                                li
+                                                                    
+                                                                |  1. Go to your Paypal Account > Dashboard > Apps & Credentails >Select app name
+                                                                li
+                                                                    
+                                                                | 2. Copy your ClientId Key and Secret Key from the &quot;SANDBOX API CREDENTIALS&quot; section
+                                                                li
+                                                                            
+                                                                | 3. Paste them into Checkout X and Save
+                                                
+                                                if(payment_method && payment_method.method_name ==="Checkout")
+                                                    section.col-xl-12.col-xl-12
+                                                        br
+                                                    
+                                                        // Bordered Tabs
+                                                        .tab-content.pt-2
+                                                            h6
+                                                                | To find your API Keys open your Checkout.com Console 
+                                                            ul
+                                                                li
+                                                                    
+                                                                | 1. Go to your Checkout.com Account > Developers > Keys
+                                                                li
+                                                                    
+                                                                | 2. Copy your Public Key and Secret Key from the &quot;Manage Keys&quot; section
+                                                                li
+                                                                            
+                                                                | 3. Paste them into Checkout X and Save
+                                        
+                                                if(payment_method && payment_method.method_name ==="Klarna")
+                                                    section.col-xl-12.col-xl-12
+                                                        br
+                                                    
+                                                        // Bordered Tabs
+                                                        .tab-content.pt-2
+                                                            h6
+                                                                | To find your API Keys open your Klarna Console 
+                                                            ul
+                                                                li
+                                                                    
+                                                                | 1. 1. Go to your Klarna Account > Developers > API Keys
+                                                                li
+                                                                    
+                                                                | 2.  Copy your Publishable Key and Secret Key from the &quot;Standard Keys&quot; section
+                                                                li
+                                                                            
+                                                                | 3. Paste them into Checkout X and Save
+                                        
+                                        
+                                        
+                                        .d-flex.justify-content-end
+                                            button.btn.btn-danger.delete_payment_method(type="button" id=`${payment_method?payment_method.id:''}`) DELETE PAYMENT METHOD 
+                                            button.btn.btn-primary.save-btn(type="submit" id=`${payment_method?payment_method.id:''}`) SAVE PAYMENT METHOD
+            
+block scripts
+    script(type='text/javascript', src='/assets/js/custom/payment_methods.js')
+    script(type='text/javascript', src='/assets/js/sweetalert.js') 
+    script(type='text/javascript', src='/assets/js/sweetalert.min.js') 

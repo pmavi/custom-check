@@ -1,0 +1,242 @@
+extends ../../layouts/backend_layout
+
+block content
+    main.main.main_top0
+        section
+            div.row.m-0
+                div.col-md-3.left_bar
+                    div.store_setup_stepper.add_your_store
+                        h2 Add your store
+                        div.content 
+                              To connect your Shopify store, please provide your 
+                               span.highlight myshopify domain.
+                              Checkout Masterdoes not support other eCom platforms yet.
+                        
+                        div.under_white_wrap
+                            p TO GET STARTED YOU NEED:
+                            <ol>
+                                <li>Shopify account</li>
+                                <li>Correct myshopify domain</li>
+                            </ol>
+
+                    div.store_setup_stepper.store_scopes
+                        h2 Create a custom app
+                        .content
+                            p
+                            | Checkout Masteris an custom Shopify app that needs a number of permissions to
+                            | interact with your store
+                            p
+                            | Please go to 
+                            span.highlight Apps and sales channels &gt; Develop apps
+                            | &gt;  (in Settings menu) &gt; 
+                            span.highlight Create an app
+                            |  and configurate this feature. Next, configure the according to the instructions below.
+
+                        div.under_white_wrap
+                            p HOW TO SET UP CUSTOM APPS CORRECTLY
+                            <ol>
+                                <li>Create a Custom app <a class="btn btn-primary" href="https://www.shopify.com/admin/settings/apps" target="_blank">Go to Apps on Shopify</a></li>
+                                <li>Copy Custom app name to corresponding field in Application details section.</li>
+                                <li>Scroll to Admin API permissions section</li>
+                                <li>In Shopify choose Configure Admin API scopes section.</li>
+                                <li>Set custom app permissions as listed here.</li>
+                                <li>Save your changes in custom app on Shopify.</li>
+                                <li>Click Install your custom app on Shopify, after this you get credential for the next step.</li>
+                            <ol>
+
+                    div.store_setup_stepper.store_details
+                        h2 Add your API keys
+                        .content
+                            p Now that you've saved the app, Shopify has generated API credentials. If all app permissions have been set correctly, Checkout Masterwill be installed on your store.
+
+                        div.under_white_wrap
+                            p HOW CAN YOU DO THIS?
+                            <ol>
+                                <li>
+                                | Select the 
+                                span.highlight API credentials tab 
+                                | in your custom Shopify app.</li>
+                                <li>Copy the required data from Shopify to Checkout master.</li>
+                                <li>Click button "Connect store" so that we can check permissions.</li>
+                            </ol>
+
+                    div.store_setup_stepper.store_verify_details
+                        h2 Edit app details
+                        .content
+                            p
+                            | In your store go to 
+                            span.highlight Apps and sales channels > Develop apps
+                            | (in Settings menu) next, choose 
+                            span.highlight > Checkout Masterapp.
+
+                        div.under_white_wrap
+                            p HOW CAN YOU DO THIS?
+                            <ol>
+                                <li>
+                                | Scroll to 
+                                span.highlight Admin API permissions 
+                                | section.<a class="btn btn-primary" href="https://www.shopify.com/admin/settings/apps" target="_blank">Go to Apps on Shopify</a></li>
+                                <li>In Shopify section Configuration choose edit Admin API integration.</li>
+                                <li>Set custom app permissions as listed here.</li>
+                                <li>Save changes in custom app on Shopify and try connect your store again.</li>
+                            </ol>
+
+
+                div.col-md-12.right_sec
+                    .success_bar
+                        .bar_a.default_active
+                            span.ac 1
+                            span Add your store
+                        .bar_a.active
+                            span.ac 2
+                            span Create a custom app
+                        .bar_a
+                            span.ac 3
+                            span Add app details
+
+                    
+                    div.other_height
+                        div.card.store_setup_stepper.add_your_store.col-md-6
+                            div.card-body
+                                form.g-3(id="store_name" method='post' autocomplete="off")
+                                    div.mb-3
+                                        label.col-form-label Store Domain
+                                        div
+                                            .input-group.mb-2
+                                                input.form-control.required(
+                                                    type='text',
+                                                    name='store_name',value="",
+                                                    placeholder='xyzstore'
+                                                )
+                                                span.input-group-text .myshopify.com
+                                        p <svg xmlns="http://www.w3.org/2000/svg" focusable="false" class="jss133" width="16" height="16" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" style="transform: rotate(360deg);"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10s10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8s8 3.589 8 8s-3.589 8-8 8z" fill="currentColor"></path><path d="M11 11h2v6h-2zm0-4h2v2h-2z" fill="currentColor"></path></svg>
+                                          <small class="pris"> Make sure your donmain is correct </small>
+                                    div.form-action.mt-2
+                                            button.btn.btn-primary(type='submit') Go to next step
+
+                        div.card.store_setup_stepper.store_scopes.col-md-6
+                            form.card-body.g-3(id="store_scopes" method='post', autocomplete="off")
+                                    div.scrollalbe
+                                        div
+                                                label
+                                                    h3 Set App details
+                                                    div.input-group.col
+                                                        input.form-control(
+                                                            readonly
+                                                            type='text',
+                                                            name='scope_page',
+                                                            value="checkout-master",
+                                                            placeholder='Checkout-master'
+                                                        )
+                                                        span.input-group-text
+                                                            i.bi.bi-clipboard.clipboard_app_name(aria-hidden='true')
+                                                            
+                                                    p Paste it to App Name filed to shopify
+
+                                                p In admin App scopes set the following permission
+                                                .card
+                                                    .card-body
+                                                        h5.card-title Products
+                                                        p.card-text read_products, write_products
+                                                        h5.card-title Customers
+                                                        p.card-text read_customers, write_customers
+                                                        h5.card-title Discounts
+                                                        p.card-text read_discounts, write_discounts
+                                                        h5.card-title Fullfilled services
+                                                        p.card-text read_fulfillments
+                                                        h5.card-title GDPR data requests
+                                                        p.card-text read_gdpr_data_request
+                                                        h5.card-title Gift cards
+                                                        p.card-text read_gift_cards
+                                                        h5.card-title Inventory
+                                                        p.card-text read_inventory, write_inventory
+                                                        h5.card-title Order editing
+                                                        p.card-text read_order_edits, write_order_edits
+                                                        h5.card-title Orders
+                                                        p.card-text read_orders, write_orders
+                                                        h5.card-title Price rules
+                                                        p.card-text read_price_rules, write_price_rules
+                                                        h5.card-title Products listings
+                                                        p.card-text read_product_listings
+                                                        h5.card-title Script tags
+                                                        p.card-text read_script_tags, write_script_tags
+                                                        h5.card-title Shipping
+                                                        p.card-text read_shipping
+                                                        h5.card-title Themes
+                                                        p.card-text read_themes, write_themes
+                                    
+                                    div.form-action.mt-2
+                                        button.btn.btn-primary(type='submit') Go to next step
+
+                        div.card.store_setup_stepper.store_details.col-md-6
+                            div.card-body
+                                h2 You’re almost there!
+                                form(
+                                    id="store_details"
+                                    method='post'
+                                    autocomplete="off"
+                                )
+                                    input.form-control.store_domain(type='hidden', name='store_domain', value="")
+                                    div.row
+                                        div.form-group.row.mb-4
+                                            div.col-md-12
+                                                input.form-control.required(
+                                                    type='text',
+                                                    name='access_token', value="",
+                                                    placeholder='Enter Access Token'
+                                                )
+                                                <small class="form-text text-muted pris">
+                                                | Paste value from the 
+                                                span.highlight  API access token
+                                                |  field on Shopify here.</small>
+
+                                        div.form-group.row.mb-4
+                                            div.col-md-12
+                                                input.form-control.required(
+                                                    type='text',
+                                                    name='shopify_api_key', value="",
+                                                    placeholder='Enter Api Key'
+                                                )
+                                                <small class="form-text text-muted pris">
+                                                | Paste value from the 
+                                                span.highlight  API key 
+                                                |  field on Shopify here.</small>
+                                        
+                                        div.form-group.row.mb-4
+                                            div.col-md-12
+                                                input.form-control.required(
+                                                    type='text',
+                                                    name='shopify_secret_key', value="",
+                                                    placeholder='Enter Secret Key'
+                                                )
+                                                <small class="form-text text-muted pris">
+                                                | Paste value from the 
+                                                span.highlight  API secret key
+                                                |  field on Shopify here.</small>
+
+                                    div.form-action.mt-2
+                                        button.btn.btn-primary(type='submit') Connect store
+    
+                        div.card.store_setup_stepper.store_verify_details.col-md-6
+                            div.card-body
+                                form.g-3(id="store_verify_details" method='post', autocomplete="off")
+                                    div.row.mb-3.scrollalbe_again
+                                        input(type='hidden',name='store_domain',value="",id="store_domain_verify")
+                                        input(type='hidden',name='access_token', id="access_token_verify")
+                                        input(type='hidden',name='shopify_api_key', id="shopify_api_key_verify")
+                                        input(type='hidden',name='shopify_secret_key', id="shopify_secret_key_verify")
+                                        
+                                        h2 Some permissions are set incorrectly!
+                                        p
+                                            | We found that some permissions have wrong access level. Please check them again in the Admin 
+                                            span.highlight API integration
+                                            |  section and connect your store.
+
+                                        div.incorrect_scopes
+                                            Products
+                                                                                        
+                                    div.form-action.mt-2
+                                        button.btn.btn-primary(type='submit') Try Again
+
+block scripts
+    script(type='text/javascript', src='/assets/js/custom/shopify_connect.js')

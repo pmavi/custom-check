@@ -1,0 +1,16 @@
+extends ../../layouts/backend_layout
+
+block content 
+    main#main.main
+        .pagetitle
+            h1 Taxes
+        div.illustration-block.illustration-block--tax-rates
+        div.row.illustration-block-content
+            div
+            div.row
+                div.col-12
+                    h1
+                    |    Add your tax rates
+                    
+                div.col-12.mt-3
+                    a.btn.btn-primary(href=`/${store_id}/taxes/new`) Add a tax rate
