@@ -9,14 +9,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dinesh-brihaspatitech/custom-checkout-nodejs.git"
+    "url": "git+https://github.com/pmavi/custom-check.git"
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/dinesh-brihaspatitech/custom-checkout-nodejs/issues"
-  },
-  "homepage": "https://github.com/dinesh-brihaspatitech/custom-checkout-nodejs#readme",
+  
   "dependencies": {
     "axios": "^1.2.3",
     "bcryptjs": "^2.4.3",
